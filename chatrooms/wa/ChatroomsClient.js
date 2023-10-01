@@ -2322,6 +2322,7 @@ function changePresence() {
     var pres;
     $("#presPreloader").html('<div class="spinner-border"></div>');
     for(let x = 0; x > $("[name='presence']").length; x++){
+	console.log(x);
         if($("[name='presence']")[x].checked){
             switch(x){
                 case 0:
