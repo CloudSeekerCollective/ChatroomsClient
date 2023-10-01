@@ -66,7 +66,7 @@ function messageAutoscroll(force){
     }, 'fast');
     return;
 
-    let container = $(".messageSpace");
+    /*let container = $(".messageSpace");
     let lastMessage = $(".message").length - 1;
     let scrollTo = $(".message")[lastMessage];
     $(container).scroll(function() {
@@ -77,7 +77,7 @@ function messageAutoscroll(force){
              );
              $(container).off("scroll");
         }
-    });
+    });*/
 }
 
 function emptyEnvironment() {
@@ -2311,6 +2311,17 @@ function uploadAttachment() {
 function changeUsername() {
     $("#usrPreloader").html('<div class="spinner-border"></div>');
     sockSend('{"type":"editprofile:username","authentication":"' + token + '","username":"' + $("#accountInfoUsername_1")[0].value + '"}');
+}
+
+function changePassword() {
+    $("#passPreloader").html('<div class="spinner-border"></div>');
+    if($("#accountInfoPassword_1")[0].value != $("#accountInfoPassword_2")[0].value){
+	    toaster("New passwords don't match!");
+    }
+    else{
+	    closeEverythingElse();
+	    $("#passwordModal").modal("show");
+    }
 }
 
 function changeStatus() {
