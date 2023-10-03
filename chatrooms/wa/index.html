@@ -76,7 +76,8 @@
 				<div>
 					<div class='x'>
 						<h6 style="opacity:0.5;"><b>INFORMATION CHANNELS</b></h6>
-						<button id='channel_rules' class='server emerg activatedServer' onclick='localChannel = "x:rules"; xload(); isDone = true; clearChat(); loadRules();'><span class='channel-dot'><i class="bi bi-exclamation-lg"></i>•</span> Rules</button><br>
+						<button id='channel_rules' class='server emerg activatedServer' onclick='localChannel = "x:rules"; xload(); isDone = true; clearChat(); loadRules();'><span class='channel-dot'><i class="bi bi-shield-fill-exclamation"></i>•</span> Rules</button><br>
+						<button id='findUserButton' class='server emerg activatedServer' onclick='$("#searchUserModal").modal("show")'><span class='channel-dot'><i class="bi bi-search"></i> •</span> User search</button><br>
 					</div>
 					<hr>
 					<h6 style="padding-left: 10px; opacity:0.5;"><b>TEXT CHANNELS</b></h6>
@@ -111,8 +112,7 @@
 					<h2>In your voice chat</h2>
 					<div class='vcOnlineList'>
 						<p>Join a voice channel to view who is talking.</p>
-					</div><hr>
-                                        <button id='findUserButton' class='server emerg activatedServer' onclick='$("#searchUserModal").modal("show")'><span class='channel-dot'><i class="bi bi-search"></i> •</span> User search</button><br>
+					</div>
 				</div>
 			</div>
 		</div>
