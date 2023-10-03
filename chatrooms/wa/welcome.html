@@ -1173,27 +1173,16 @@ Version: 0.7.2
 
       <!-- Modal body -->
       <div class="modal-body">
-		<div class="row">
-  			<div class="col">
-				<div class="list-group list-group-flush">
-  					<a data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile" onclick='//$(".cssbox")[1].value = localStorage.getItem("css"); $("#css").html(localStorage.getItem("css"));' id='usets_profile_button' class="list-group-item list-group-item-action active">Profile</a>
-  					<a data-bs-toggle="list" href="#list-account" role="tab" aria-controls="list-account" onclick='//$(".cssbox")[1].value = localStorage.getItem("css"); $("#css").html(localStorage.getItem("css"));' id='asets_profile_button' class="list-group-item list-group-item-action">Account Settings</a>
-				</div>
-			</div>
-  			<div id='profile_content' class="col">
-				    <div class="tab-content">
-					<div class="tab-pane fade show active" id="list-profile" role="tabpanel">
-
-		
-  			<!--<div class="col">
-				<div class="list-group">
-  					<a href="#" onclick='$("#userprofile").css("display", "block"); viewAccountInfo();' id='accprofile_button' style='color:black !important;' class="list-group-item list-group-item-action">Profile</a>
-				</div><br>
-				<div class="list-group">
-  					<a href="#" onclick='$("#usersettings_content").html(document.getElementById("accountsettings").innerHTML);' id='accsettings_button' style='color:black !important;' class="list-group-item list-group-item-action">Account</a>
-				</div><br>
-			</div>
-  			<div id='usersettings_content' class="col">-->
+		<ul class="nav nav-tabs" id="meModalTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#about-chtr" type="button" role="tab" id='usets_profile_button'>Profile</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#credits" type="button" role="tab" id='asets_profile_button'>Account Settings</button>
+  </li>
+</ul>
+	      <div class="tab-content" id="meModalContent">
+  			<div id='profile_content' class="tab-pane fade show active">
 				<div id='userprofile'>
 				<img id='accountInfoPicture_1' class="rounded" src='account.png' width='128' height='128'>
 				<br><br> <form method='POST' enctype='multipart/form-data' id='pfpForm'>
@@ -1283,8 +1272,7 @@ Version: 0.7.2
 					</div>
 				</div>
 				<!--<button onclick='if(tokenRevealed == false){innerHTML = "Remember: Chatrooms is provided AS IS, therefore we are not responsible for any damage caused to your account by proceeding. Do not share or stream what is about to be revealed."; tokenRevealed = true;}else{alert("Your account token is " + token); tokenRevealed = false; innerHTML = "Reveal Account Token"}'>Reveal Account Token</button><br><br>-->
-      				</div></div>
-				<div class="tab-content">
+      				</div>
 					<div class="tab-pane fade" id="list-account" role="tabpanel">
 						<h2>Account Settings</h2><hr>
 						<p>Change username:</p>
@@ -1297,7 +1285,7 @@ Version: 0.7.2
 						</div><span id='usrPreloader'></span>
 						<br>
 					</div>
-				
+	      			</div>
 			</div>
 		</div>
 	</div>
