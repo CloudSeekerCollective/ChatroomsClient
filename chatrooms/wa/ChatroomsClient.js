@@ -550,10 +550,10 @@ function checkForSatellite() {
                         $.ajax({url:obj.picture, error: function(xhr, status, error){
                             console.log("[ChatroomsClient] Could not load profile picture!");
                             pfp = "account.png";
-                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.id + ", \"" + obj.username + "\")'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.profilestatus, 14) +"\"</span><br>\n");
+                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.id + ", \"" + obj.username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.profilestatus, 14) +"\"</span><br>\n");
                         }, success: function(result, status, xhr){
                             pfp = obj.picture;
-                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.id + ", \"" + obj.username + "\")'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.profilestatus, 14) +"\"</span><br>\n");
+                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.id + ", \"" + obj.username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.profilestatus, 14) +"\"</span><br>\n");
                         }});
                     }
                 } else if(obj.action == "whisper") {
