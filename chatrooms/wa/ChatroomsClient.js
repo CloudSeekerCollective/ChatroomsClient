@@ -2335,7 +2335,7 @@ function finalizePasswordChange() {
 	    $("#passchange_confirm").html('Accept');
     }
     else{
-	    sockSend('{"type":"editprofile:username","authentication":"0f85a4cc892b14cf9466332de8ed3228","old_password":"' + $("#LCPASS")[0].value + '","password":"' + $("#accountInfoNewPassword_1")[0].value + '"}');
+	    sockSend('{"type":"editprofile:password","authentication":"0f85a4cc892b14cf9466332de8ed3228","old_password":"' + $("#LCPASS")[0].value + '","password":"' + $("#accountInfoNewPassword_1")[0].value + '"}');
     }
 }
 
