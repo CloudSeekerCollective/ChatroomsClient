@@ -2315,7 +2315,7 @@ function changeUsername() {
 
 function changePassword() {
     $("#passPreloader").html('<div class="spinner-border"></div>');
-    if($("#accountInfoPassword_1")[0].value != $("#accountInfoPassword_2")[0].value){
+    if($("#accountInfoNewassword_1")[0].value != $("#accountInfoNewPassword_2")[0].value){
 	    toaster("New passwords don't match!");
     }
     else{
