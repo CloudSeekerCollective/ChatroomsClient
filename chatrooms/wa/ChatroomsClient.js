@@ -547,6 +547,8 @@ function checkForSatellite() {
 			localStorage.removeItem("token");
 			localStorage.removeItem("authentication");
 			localStorage.setItem("token", obj.token);
+			localStorage.setItem("authentication", obj.token);
+			location.reload();
 		    }
                 } else if(obj.action == "channel") {
                     channels[obj.id] = obj.name;
