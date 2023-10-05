@@ -1099,7 +1099,7 @@ Version: 0.7.2
 	<p>For security reasons, you will also need to insert your current password to proceed:</p>
 	<div class="form-floating mt-3 mb-3">
      		<input type="password" class="form-control" id="LCPASS" placeholder="Insert your current password..." name="LCpassword">
-      		<label id='init_pass' for="Lpassword">Insert your current password...</label>
+      		<label id='change_pass' for="Lpassword">Insert your current password...</label>
     	</div>
       </div>
 <!-- <button type="button" class="btn btn-primary btn-block" data-bs-toggle="tooltip" title="You have reached the Chatroom limit.">Disabled</button> -->
@@ -1321,12 +1321,12 @@ Version: 0.7.2
                                 		        <div class='form-floating'>
                     			                        <input type='password' class='form-control form-control-lg' id='accountInfoNewPassword_1' placeholder="New password...">
                                      				    <label for="accountInfoNewPassword_1" class="form-label">New Password</label>
-							</div>
+							</div><br>
 							<div class='form-floating'>
 								<input type='password' class='form-control form-control-lg' id='accountInfoNewPassword_2' placeholder="Confirm your new password...">
 								    <label for="accountInfoNewPassword_2" class="form-label">Confirm New Password</label>
                                         		</div>
-							<button class="btn btn-outline-success" onclick='changePassword();'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg></button>
+							<button class="btn btn-lg btn-success" onclick='changePassword();'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg> Change Password</button>
 						<span id='passPreloader'></span>
 						<br>
 					</div>
