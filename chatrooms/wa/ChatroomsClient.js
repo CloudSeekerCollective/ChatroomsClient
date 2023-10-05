@@ -535,6 +535,19 @@ function checkForSatellite() {
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
                     toaster("Saved!");
+                } else if(obj.action == "editprofile:password") {
+                    console.log("[ChatroomsSatellite] Message with editprofile:password intent has been recieved");
+                    //$("#meModal").modal("hide");
+                    if(obj.status == "fail"){
+			    toaster("Your old password is not correct! Please try again!");
+			    $("#passchange_confirm").html('Accept');
+		    }else{
+			$("#passchange_confirm").html('Accept');
+                    	toaster("Your password has been changed! Give us a short second while we update things on our end...");
+			localStorage.removeItem("token");
+			localStorage.removeItem("authentication");
+			localStorage.setItem("token", obj.token);
+		    }
                 } else if(obj.action == "channel") {
                     channels[obj.id] = obj.name;
                     $(".channels").html(document.getElementsByClassName("channels")[0].innerHTML + "<button id='channel_" + obj.id + "' class='server emerg activatedServer' onclick='localChannel = " + obj.id + "; getOlderMessages(); addMessage(\"System\", strings.channels_switch + \"#" + obj.name + "\", 0, 0, true, now_new, true); xload();'><span class='channel-dot'><i class='bi bi-hash' title='Text'></i>•</span> <span class='channel-name'>" + obj.name + "</span></button><br>\n");
@@ -2313,9 +2326,20 @@ function changeUsername() {
     sockSend('{"type":"editprofile:username","authentication":"' + token + '","username":"' + $("#accountInfoUsername_1")[0].value + '"}');
 }
 
+function finalizePasswordChange() {
+    $("#passchange_confirm").html('<div class="spinner-border"></div>');
+    if($("#accountInfoNewPassword_1")[0].value != $("#accountInfoNewPassword_2")[0].value){
+	    toaster("New passwords don't match!");
+	    $("#passchange_confirm").html('Accept');
+    }
+    else{
+	    sockSend('{"type":"editprofile:username","authentication":"0f85a4cc892b14cf9466332de8ed3228","old_password":"' + $("#LCPASS")[0].value + '","password":"' + $("#accountInfoNewPassword_1")[0].value + '"}');
+    }
+}
+
 function changePassword() {
     $("#passPreloader").html('<div class="spinner-border"></div>');
-    if($("#accountInfoNewassword_1")[0].value != $("#accountInfoNewPassword_2")[0].value){
+    if($("#accountInfoNewPassword_1")[0].value != $("#accountInfoNewPassword_2")[0].value){
 	    toaster("New passwords don't match!");
     }
     else{
