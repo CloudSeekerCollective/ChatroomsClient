@@ -398,28 +398,28 @@ function checkForSatellite() {
                     let waitalittlemore = setTimeout(function(){$("#loadmodal").html(strings.satellite_permadisconnect);}, 500);
                     switch(obj.error) {
                         case "localhost_lock_enabled":
-                            addMessage("System", "<span style='color:#ff4d4d;'>This chatroom is currently locked! (localhost_lock_enabled)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("This chatroom is currently locked!");
+                            addMessage("System", "<span style='color:#ff4d4d;'>This Chatroom is currently locked! (localhost_lock_enabled)</span>", 0, 0, true, dateObj, true, true);
+                            $("#actual_disconnect_reason").html("This Chatroom is currently locked!");
                             break;
                         case "account_temporarily_restricted":
                             addMessage("System", "<span style='color:#ff4d4d;'>Your account has been temporarily restricted, wait for an admin to allow you to enter! (account_temporarily_restricted)</span>", 0, 0, true, dateObj, true, true);
                             $("#actual_disconnect_reason").html("Your account has been temporarily restricted, wait for an admin to allow you to enter!");
                             break;
                         case "no_authentication_provided":
-                            addMessage("System", "<span style='color:#ff4d4d;'>The account you're connecting with doesn't exist anymore! (no_authentication_provided)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("The account you're connecting with doesn't exist anymore!");
+                            addMessage("System", "<span style='color:#ff4d4d;'>Invalid credentials provided! Please try logging out and in again... (no_authentication_provided)</span>", 0, 0, true, dateObj, true, true);
+                            $("#actual_disconnect_reason").html("Invalid credentials provided! Please try logging out and in again...");
                             break;
                         case "user_already_online":
                             addMessage("System", "<span style='color:#ff4d4d;'>You're already online on another device! (user_already_online)</span>", 0, 0, true, dateObj, true, true);
                             $("#actual_disconnect_reason").html("You're already online on another device!");
                             break;
                         case "or_you_will_get_clapped":
-                            addMessage("System", "<span style='color:#ff4d4d;'>You have been banned from this chatroom! (or_you_will_get_clapped)</span>", 0, 0, true, dateObj, true, true);
+                            addMessage("System", "<span style='color:#ff4d4d;'>You have been banned from this Chatroom! (or_you_will_get_clapped)</span>", 0, 0, true, dateObj, true, true);
                             $("#actual_disconnect_reason").html("You have been banned from this chatroom!");
                             break;
                         case "email_not_set":
                             addMessage("System", "<span style='color:#ff4d4d;'>You need to verify your email to continue to this Chatroom! You can do that <a href='/chatrooms/login/2fa/index.php'>here</a> (email_not_set)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("You need to verify your email to continue to this Chatroom! You can do that <a href='/chatrooms/login/2fa/index.php'>here</a>");
+                            $("#actual_disconnect_reason").html("You need to verify your email to continue to this Chatroom! Check your inbox then visit the email verification page of the Chatroom.");
                             break;
                         default:
                             addMessage("System", "<span style='color:#ff4d4d;'>Critical error while connecting! I don't know what happened.</span>", 0, 0, true, dateObj, true, true);
