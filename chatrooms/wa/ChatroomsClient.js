@@ -663,6 +663,9 @@ function checkForSatellite() {
 					console.log("[ChatroomsClient] User is cloaked");
 					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-circle-fill text-secondary" title="Offline"></i>');
 				break;
+				default:
+					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
+				break;
 			}
 			
                         if(obj.warning == "User doesnt exist.") {
