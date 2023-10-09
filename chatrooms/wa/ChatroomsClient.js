@@ -637,7 +637,6 @@ function checkForSatellite() {
                     let udateObj = udateObjF.toLocaleString();
                     if(obj.xstatus == "success") {
                         console.log("[ChatroomsClient] got response");
-                        $("#accountInfoUsername_O").html(obj.username);
                         $("#accountInfoCreationDate_O").html(strings.modal_user_info_createdon + udateObj);
                         $("#accountInfoLastLoginDate_O").html( /*strings.modal_user_info_lastseen + obj.lastLoginDate*/ "");
                         if(obj.profilestatus == "") {
@@ -645,6 +644,26 @@ function checkForSatellite() {
                         } else {
                             $("#accountInfoPStatus_0").html(emoteify(obj.profilestatus, 20));
                         }
+
+			switch(obj.presence){
+				case "online":
+					console.log("[ChatroomsClient] User is online");
+					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
+				break;
+				case "idle":
+					console.log("[ChatroomsClient] User is idle");
+					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-moon-fill text-warning" title="Idle"></i>');
+				break;
+				case "dnd":
+					console.log("[ChatroomsClient] User is dnd");
+					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-dash-circle-fill text-danger" title="Do not disturb"></i>');
+				break;
+				case "cloaked":
+					console.log("[ChatroomsClient] User is cloaked");
+					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-circle-fill text-secondary" title="Offline"></i>');
+				break;
+			}
+			
                         if(obj.warning == "User doesnt exist.") {
                             console.log("[ChatroomsClient] fake");
                             $("#accountInfoUnexistent_O").css("display", "block");
@@ -729,6 +748,26 @@ function checkForSatellite() {
                             $("#accountInfoPStatus_1").val(obj.profilestatus);
                             $("#statusPreview").html(emoteify(obj.profilestatus, 20));
                         }
+
+			switch(obj.presence){
+				case "online":
+					console.log("[ChatroomsClient] User is online");
+					$("#presence_online")[0].checked = true;
+				break;
+				case "idle":
+					console.log("[ChatroomsClient] User is idle");
+					$("#presence_idle")[0].checked = true;
+				break;
+				case "dnd":
+					console.log("[ChatroomsClient] User is dnd");
+					$("#presence_dnd")[0].checked = true;
+				break;
+				case "cloaked":
+					console.log("[ChatroomsClient] User is cloaked");
+					$("#presence_cloaked")[0].checked = true;
+				break;
+			}
+			    
                         if(obj.warning == "User doesnt exist.") {
                             console.log("[ChatroomsClient] fake");
                             $("#accountInfoUnexistent_1").css("display", "block");
@@ -2358,7 +2397,7 @@ function changeStatus() {
 function changePresence() {
     var pres;
     $("#presPreloader").html('<div class="spinner-border"></div>');
-    for(let x = 0; x > $("[name='presence']").length; x++){
+    for(let x = 0; x < $("[name='presence']").length; x++){
 	console.log(x);
         if($("[name='presence']")[x].checked){
             switch(x){
