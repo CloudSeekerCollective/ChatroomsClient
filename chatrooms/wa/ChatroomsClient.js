@@ -57,6 +57,7 @@ var funny_title_thing;
 var things_count = 0;
 var isAdmin = false;
 var emotesListSort = 0;
+var localPresence = "online";
 
 window.HTMLElement.prototype.scrollIntoView = function() {};
 
@@ -487,7 +488,7 @@ function checkForSatellite() {
                         if(obj.msg.includes("@" + localAccountName) && localStorage.getItem("si_pushes_pings") == "true") {
                             audio.play();
                             htoaster(obj.user, "pinged you in #" + channels[obj.channel] + ": " + obj.msg);
-                            if(localStorage.getItem("si_push_notis") == "true"){
+                            if(localStorage.getItem("si_push_notis") == "true" && localPresence != "dnd"){
                                 let noti = new Notification(obj.user + " pinged you in #"+ channels[obj.channel] +":", {body: obj.msg, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
                             }
                         }
@@ -514,7 +515,7 @@ function checkForSatellite() {
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
                     getOnlineUsers();
-                    if(localStorage.getItem("si_push_presence") == "true"){
+                    if(localStorage.getItem("si_push_presence") == "true" && localPresence != "dnd"){
                         let noti = new Notification(obj.user, {body: strings.satellite_join_intent, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
                     }
                 } else if(obj.action == "leave") {
@@ -619,7 +620,7 @@ function checkForSatellite() {
                         } else {
                             addWhisper(obj.user, linker(obj.msg), 0, obj.uid, true, isTheAuthor, obj.recipient);
                         }
-                        if(!document.hasFocus() && localStorage.getItem("si_push_wisp") == "true") {
+                        if(!document.hasFocus() && localStorage.getItem("si_push_wisp") == "true" && localPresence != "dnd") {
                             if(localStorage.getItem("si_pings") == "true")
                                 audio.play();
                             if(localStorage.getItem("si_push_notis") == "true"){
