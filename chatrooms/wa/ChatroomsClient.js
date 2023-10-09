@@ -750,6 +750,7 @@ function checkForSatellite() {
                             $("#statusPreview").html(emoteify(obj.profilestatus, 20));
                         }
 
+			localPresence = obj.presence;
 			switch(obj.presence){
 				case "online":
 					console.log("[ChatroomsClient] User is online");
