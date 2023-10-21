@@ -646,8 +646,14 @@ function checkForSatellite() {
                         } else {
                             $("#accountInfoPStatus_0").html(emoteify(obj.profilestatus, 20));
                         }
-			if(obj.roles[0] == "admin")
-				extra_badges = '<i class="bi bi-shield-shaded" title="Administrator"></i>';
+			for(x = 0; x > obj.roles.count; x++){
+				if(obj.roles[x] == "admin")
+					extra_badges += '<i class="bi bi-shield-shaded" title="Administrator"></i>&nbsp;';
+				if(obj.roles[x] == "verified")
+					extra_badges += '<i class="bi bi-check-circle-fill" title="Verified"></i>&nbsp;';
+				if(obj.roles[x] == "kcm")
+					extra_badges += '<i class="bi bi-check-circle" title="Verified as KCM"></i>&nbsp;';
+			}
 			switch(obj.presence){
 				case "online":
 					console.log("[ChatroomsClient] User is online");
