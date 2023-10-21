@@ -634,6 +634,7 @@ function checkForSatellite() {
                 } else if(obj.action == "user") {
                     isDone = true;
                     console.log(obj.status);
+		    let extra_badges;
                     let udateObjF = new Date(obj.creationDate * 1000);
                     let udateObj = udateObjF.toLocaleString();
                     if(obj.xstatus == "success") {
@@ -645,11 +646,12 @@ function checkForSatellite() {
                         } else {
                             $("#accountInfoPStatus_0").html(emoteify(obj.profilestatus, 20));
                         }
-
+			if(obj.roles[0] == "admin")
+				extra_badges = '<i class="bi bi-shield-shaded" title="Administrator"></i>';
 			switch(obj.presence){
 				case "online":
 					console.log("[ChatroomsClient] User is online");
-					$("#accountInfoUsername_O").html(obj.username + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
+					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
 				break;
 				case "idle":
 					console.log("[ChatroomsClient] User is idle");
