@@ -634,7 +634,7 @@ function checkForSatellite() {
                 } else if(obj.action == "user") {
                     isDone = true;
                     console.log(obj.status);
-		    let extra_badges;
+		    let extra_badges = "";
                     let udateObjF = new Date(obj.creationDate * 1000);
                     let udateObj = udateObjF.toLocaleString();
                     if(obj.xstatus == "success") {
