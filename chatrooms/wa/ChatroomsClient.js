@@ -2197,7 +2197,7 @@ function userInfo(uid, pfUsername) {
         isDone = true;
         console.log("[ChatroomsClient] system user");
         WU = 0;
-        $("#accountInfoUsername_O").html('System<br>');
+        $("#accountInfoUsername_O").html('System<br><i class="bi bi-gear-fill"></i>');
         $("#accountInfoClientSide_O").css("display", "block");
         $("#accountInfoPStatus_0").html("You should also refer to me as Mr Chatrooms.");
         $("#accountInfoCreationDate_O").html('Account created on: Even though my age cannot be calculated, scientists have estimated it to be May 15th, 2022');
