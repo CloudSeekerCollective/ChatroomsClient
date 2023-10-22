@@ -646,7 +646,7 @@ function checkForSatellite() {
                         } else {
                             $("#accountInfoPStatus_0").html(emoteify(obj.profilestatus, 20));
                         }
-			for(x = 0; x > obj.roles.count; x++){
+			for(x = 0; x < obj.roles.length; x++){
 				if(obj.roles[x] == "admin")
 					extra_badges += '<i class="bi bi-shield-shaded" title="Administrator"></i>&nbsp;';
 				if(obj.roles[x] == "verified")
