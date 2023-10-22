@@ -657,22 +657,22 @@ function checkForSatellite() {
 			switch(obj.presence){
 				case "online":
 					console.log("[ChatroomsClient] User is online");
-					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
+					$("#accountInfoUsername_O").html(obj.username + "<br>" + extra_badges + "" + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
 				break;
 				case "idle":
 					console.log("[ChatroomsClient] User is idle");
-					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-moon-fill text-warning" title="Idle"></i>');
+					$("#accountInfoUsername_O").html(obj.username + "<br>" + extra_badges + "" + '<i class="bi bi-moon-fill text-warning" title="Idle"></i>');
 				break;
 				case "dnd":
 					console.log("[ChatroomsClient] User is dnd");
-					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-dash-circle-fill text-danger" title="Do not disturb"></i>');
+					$("#accountInfoUsername_O").html(obj.username + "<br>" + extra_badges + "" + '<i class="bi bi-dash-circle-fill text-danger" title="Do not disturb"></i>');
 				break;
 				case "cloaked":
 					console.log("[ChatroomsClient] User is cloaked");
-					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-circle-fill text-secondary" title="Offline"></i>');
+					$("#accountInfoUsername_O").html(obj.username + "<br>" + extra_badges + "" + '<i class="bi bi-circle-fill text-secondary" title="Offline"></i>');
 				break;
 				default:
-					$("#accountInfoUsername_O").html(obj.username + " " + extra_badges + " " + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
+					$("#accountInfoUsername_O").html(obj.username + "<br>" + extra_badges + "" + '<i class="bi bi-circle-fill text-success" title="Online"></i>');
 				break;
 			}
 			
