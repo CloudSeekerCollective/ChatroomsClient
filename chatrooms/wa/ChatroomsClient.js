@@ -1011,7 +1011,7 @@ function checkForSatellite() {
             $("#loadingResourcesModal").modal("hide");
             $("#loginModal").modal("show");
             getSuggested();
-        }, 1000);
+        }, 100);
     }
     }catch(e){
         catchError(e);
