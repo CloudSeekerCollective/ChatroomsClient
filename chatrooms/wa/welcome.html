@@ -821,75 +821,73 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
   </div>
 </div>
 <div class="modal fade" id="otherUserModal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title" id='userinfo_t'>User info</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
+      
+<button type="button" class="btn-close" data-bs-dismiss="modal" style="position: absolute; right: 0; margin: 5px;"></button>
       <!-- Modal body -->
       <div class="modal-body">
-	<img src='account.png' class="rounded" id='other_pfp' width='128', height='128'>
-	<span><p class='placeholder-glow' id='accountInfoUsername_O' style='font-size: 32px;'><span class="placeholder col-6"></span></p></span>
-	"<span id='accountInfoPStatus_0' class='placeholder-glow'><span class="placeholder col-8"></span></span>"<br><br>
-	<div class='userActions'>
+	<img src="account.png" class="rounded" id="other_pfp" width="128" height="128" style="left: auto; position: absolute; top: 0; margin-top: 15px;">
+	<span><p class="placeholder-glow" id="accountInfoUsername_O" style="left: initial; font-family: SSP-B; font-size: 32px; margin-left: 140px;"><span class="placeholder col-6"></span><br></p></span><br><br>
+				"<span id="accountInfoPStatus_0" class="placeholder-glow"><span class="placeholder col-8"></span></span>"<br><br>
+	<div class="userActions" style="text-align: right">
 		<!--<button id='starWhisperButton' onclick='addMessage(&quot;System&quot;, &quot;You are now whispering to this user&quot;, 0, 0, true, now_new, true); initiateWhisper(WU, true)' data-bs-dismiss="modal" type="button" style='--bs-btn-bg: orange; --bs-btn-color: white; --bs-btn-hover-bg: shade-color(orange, 10%); --bs-btn-active-bg: shade-color(orange, 20%);' class="btn"><b>Star</b></button>-->
-		<button id='whisperButton' onclick='addMessage(&quot;System&quot;, &quot;You are now whispering to &quot;+ WUname, 0, 0, true, now_new, true); initiateWhisper(WU, true); addToDMList(WUname, WU); messageAutoscroll();' data-bs-dismiss="modal" type="button" class="btn btn-primary" disabled>Whisper</button> &nbsp;
-		<div class="dropdown" style='display: inline;'>
-			<button id='ouMoreButton' type="button" class="btn btn-outline-secondary btn-block dropdown-toggle" data-bs-toggle="dropdown">More actions</button>
-			<ul class="dropdown-menu">
-				<li><a id='copyIdButton' class="dropdown-item" href='#' onclick='if(WU == 0){toaster("Considering the System is above all beings on Chatrooms, he does not need identification.");}else{navigator.clipboard.writeText(WU); toaster("Copied to clipboard!");}'>Copy User ID</a></li>
-				<li><a id='blockButton' class="dropdown-item" href='#' onclick='if(WU == 0){toaster("<h2>Do not even try me.</h2>");}else{toaster("Soon™️");}'>Block</a></li>
-				<li><a id='banButton' class="dropdown-item" href='#' onclick='if(WU == 0){toaster("<h2>What were you even thinking?</h2>");}else{triggerBanUI(WU);}'>Ban</a></li>
+		<div class="dropdown" style="display: inline;">
+			<button id="ouMoreButton" type="button" class="btn btn-outline-secondary btn-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+			<ul class="dropdown-menu" style="">
+				<li><a id="copyIdButton" class="dropdown-item" href="#" onclick="if(WU == 0){toaster(&quot;Considering the System is above all beings on Chatrooms, he does not need identification.&quot;);}else{navigator.clipboard.writeText(WU); toaster(&quot;Copied to clipboard!&quot;);}">Copy User ID</a></li>
+				<li><a id="blockButton" class="dropdown-item" href="#" onclick="if(WU == 0){toaster(&quot;<h2>Do not even try me.</h2>&quot;);}else{toaster(&quot;Soon™️&quot;);}">Block</a></li>
+				<li><a id="banButton" class="dropdown-item" href="#" onclick="if(WU == 0){toaster(&quot;<h2>What were you even thinking?</h2>&quot;);}else{triggerBanUI(WU);}">Ban</a></li>
 			</ul>
-		</div>
+		</div>&nbsp;
+		<button id="whisperButton" onclick="addMessage(&quot;System&quot;, &quot;You are now whispering to &quot;+ WUname, 0, 0, true, now_new, true); initiateWhisper(WU, true); addToDMList(WUname, WU); messageAutoscroll();" data-bs-dismiss="modal" type="button" class="btn btn-primary" style="display: inline;" disabled>Whisper</button>
+
 	</div>
-	<hr>
-	<span><p id='accountInfoCreationDate_O' class='placeholder-glow'><span class="placeholder col-4"></span></p></span>
-	<span><p id='accountInfoLastLoginDate_O' class='placeholder-glow'><span class="placeholder col-4"></span></p></span>
-	<div id='accountInfoLoading_O'>
+	
+	<hr><span><p id="accountInfoCreationDate_O" class="placeholder-glow"><span class="placeholder col-4"></span></p></span>
+	<span><p id="accountInfoLastLoginDate_O" class="placeholder-glow"></p></span>
+	<div id="accountInfoLoading_O" style="display: none;">
 		<div class="spinner-border"></div>
 	</div>
-	<hr>
-	<div id='accountInfoSystemError_O'>
+	
+	<hr><div id="accountInfoSystemError_O" style="display: none;">
 		<div class="alert alert-danger">
   			<i class="bi bi-person-fill-exclamation"></i> I was unable to get information for this account.
 		</div>
 	</div>
-        <div id='accountInfoUnexistent_O'>
+        <div id="accountInfoUnexistent_O" style="display: none;">
 		<div class="alert alert-danger">
   			<i class="bi bi-person-fill-exclamation"></i> This account does not exist.
 		</div>
 	</div>
-	<div id='accountInfoBanned_O'>
+	<div id="accountInfoBanned_O" style="display: none;">
 		<div class="alert alert-danger">
   			<i class="bi bi-person-fill-slash"></i> This account has been banned from this Chatroom.
 		</div>
 	</div>
-	<div id='accountInfoReserved_O'>
+	<div id="accountInfoReserved_O" style="display: none;">
 		<div class="alert alert-warning">
   			<i class="bi bi-person-fill-lock"></i> This username is reserved and is waiting to be claimed.
 		</div>
 	</div>
-	<div id='accountInfoFailedToLoadAll_O'>
+	<div id="accountInfoFailedToLoadAll_O" style="display: none;">
 		<div class="alert alert-warning">
   			<i class="bi bi-person-fill-exclamation"></i> Some information about this account could not be loaded! What you're seeing is partial.
 		</div>
 	</div>
-	<div id='accountInfoAnon_O'>
+	<div id="accountInfoAnon_O" style="display: none;">
 		<div class="alert alert-info">
   			<i class="bi bi-person-fill"></i> This user is anonymous. They have no details assigned to them.
 		</div>
 	</div>
-	<div id='accountInfoClientSide_O'>
+	<div id="accountInfoClientSide_O" style="display: none;">
 		<div class="alert alert-info">
   			<i class="bi bi-gear-fill"></i> This is the System account. The beginning of Chatrooms was right here. He is still here to inform you when most needed.
 		</div>
 	</div>
-	<div id='accountInfoStaging_O'>
+	<div id="accountInfoStaging_O" style="display: none;">
 		<div class="alert alert-info">
   			<i class="bi bi-person-fill-lock"></i> This is a STAGING account, used to test new features. This account is not able to see any chat history, and you can't see their messages either.
 		</div>
@@ -897,9 +895,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-  		<button id='userinfo_ok' type="button" class="btn btn-primary btn-block" data-bs-dismiss="modal" onclick='$("#accountInfoLoading_O").css("display", "block");'>Ok</button>
-      </div>
+      
 
     </div>
   </div>
