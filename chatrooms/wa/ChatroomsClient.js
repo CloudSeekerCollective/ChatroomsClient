@@ -506,7 +506,7 @@ function checkForSatellite() {
                             //startAdding(author, content, type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId)
                         }
                     }
-                    $("#message-" + obj.msgid).html(content);
+                    $("#message-" + obj.msgid).html(linker(content));
                 } else if(obj.action == "join") {
                     console.log("[ChatroomsSatellite] Message with join intent has been recieved");
                     if(!localChannel.startsWith("x") && localStorage.getItem("si_joinmsg") == true)
@@ -1024,6 +1024,12 @@ function setAttachmentPreview(preview){
     $("#attachmentPreview")[0].src = preview;
     $("#apOGImage").on("click", function(){extLink(preview)});
     $("#apModal").modal("show");
+}
+
+function setVideoPreview(preview){
+    $("#attachmentPreview")[0].src = preview;
+    $("#vpOGImage").on("click", function(){extLink(preview)});
+    $("#vpModal").modal("show");
 }
 
 function catchError(e){
