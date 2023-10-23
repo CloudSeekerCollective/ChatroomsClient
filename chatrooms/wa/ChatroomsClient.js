@@ -649,10 +649,12 @@ function checkForSatellite() {
 			for(x = 0; x < obj.roles.length; x++){
 				if(obj.roles[x] == "admin")
 					extra_badges += '<i class="bi bi-shield-shaded" title="Administrator"></i>&nbsp;';
-				if(obj.roles[x] == "verified")
+				else if(obj.roles[x] == "verified")
 					extra_badges += '<i class="bi bi-check-circle-fill" title="Verified"></i>&nbsp;';
-				if(obj.roles[x] == "kcm")
+				else if(obj.roles[x] == "kcm")
 					extra_badges += '<i class="bi bi-people-fill" title="Known Community Member"></i>&nbsp;';
+				else
+					extra_badges += '<i class="bi bi-person-badge-fill" title="Special role ('+ superAvoidInjection(obj.roles[x]) +')"></i>&nbsp;';
 			}
 			switch(obj.presence){
 				case "online":
