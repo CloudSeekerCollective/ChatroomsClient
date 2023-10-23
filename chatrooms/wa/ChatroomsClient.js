@@ -654,7 +654,7 @@ function checkForSatellite() {
 				else if(obj.roles[x] == "kcm")
 					extra_badges += '<i class="bi bi-people-fill" title="Known Community Member"></i>&nbsp;';
 				else
-					extra_badges += '<i class="bi bi-person-badge-fill" title="Special role ('+ superAvoidInjection(obj.roles[x]) +')"></i>&nbsp;';
+					extra_badges += '<i class="bi bi-person-badge-fill" title="'+ superAvoidInjection(obj.roles[x]) +'"></i>&nbsp;';
 			}
 			switch(obj.presence){
 				case "online":
