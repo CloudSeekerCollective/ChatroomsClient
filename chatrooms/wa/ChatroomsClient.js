@@ -1816,6 +1816,7 @@ document.addEventListener("paste", function(event) {
     let formData = new FormData();
     let fd = formData.append('CHATROOMS_UPLOAD', blob, 'unknown.png');
     console.log(formData);
+    toaster("Uploading...");
     $.ajax({
         type: 'post',
         url: httphost + '/api/chatrooms/userstore/',
@@ -2327,6 +2328,7 @@ function removeAttachments() {
 
 function uploadAttachment() {
     $("#attachment").disabled = true;
+    toaster("Uploading...");
     $.ajax({
         type: 'post',
         url: httphost + '/api/chatrooms/userstore/',
