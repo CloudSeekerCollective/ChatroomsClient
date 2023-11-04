@@ -976,7 +976,30 @@ function checkForSatellite() {
                     $('.messageSpace').animate({
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
-                } else {
+                } else if(obj.action == "userlist") {
+                    isDone = true;
+		    $(".onlineList").html()
+                    let useramount = Object.keys(obj.users).length;
+                    for(let i = (Object.keys(obj.users).length - 1); i < useramount; i--) {
+                        let data = obj.messages;
+                        //messageAutoscroll(true);
+                        let pfp;
+                    if(obj.users[i].picture == "") {
+                        console.log("[ChatroomsClient] User has no profile picture.");
+                        pfp = "account.png";
+                        $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.users[i].id + ", \"" + obj.users[i].username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.users[i].username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.users[i].profilestatus, 14) +"\"</span><br>\n");
+                    } else {
+                        $.ajax({url:obj.users[i].picture, error: function(xhr, status, error){
+                            console.log("[ChatroomsClient] Could not load profile picture!");
+                            pfp = "account.png";
+                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.users[i].id + ", \"" + obj.users[i].username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.users[i].username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.users[i].profilestatus, 14) +"\"</span><br>\n");
+                        }, success: function(result, status, xhr){
+                            pfp = obj.picture;
+                            $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.users[i].id + ", \"" + obj.users[i].username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.users[i].username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.users[i].profilestatus, 14) +"\"</span><br>\n");
+                        }});
+                    }
+                    } 
+		} else {
                     console.log("[ChatroomsSatellite] Who even knows what happened.");
                 }
             } else {
@@ -1972,7 +1995,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function getOnlineUsers() {
     $(".onlineList").html('');
-    sockSend('{"type":"onlineusers","authentication":"' + token + '"}');
+    sockSend('{"type":"userlist","authentication":"' + token + '"}');
 }
 
 
