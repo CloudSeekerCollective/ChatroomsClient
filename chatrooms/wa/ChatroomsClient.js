@@ -995,7 +995,7 @@ function checkForSatellite() {
                             pfp = "account.png";
                             $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.users[i].id + ", \"" + obj.users[i].username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.users[i].username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.users[i].profilestatus, 14) +"\"</span><br>\n");
                         }, success: function(result, status, xhr){
-                            pfp = obj.picture;
+                            pfp = obj.users[i].picture;
                             $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.users[i].id + ", \"" + obj.users[i].username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.users[i].username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.users[i].profilestatus, 14) +"\"</span><br>\n");
                         }});
                     }
