@@ -980,6 +980,10 @@ function checkForSatellite() {
                     isDone = true;
 		    $(".onlineList").html()
                     let useramount = obj.users.length;
+		    if(useramount == 0){
+			    $(".onlineList").html("It's quiet in here. WAY too quiet...");
+			    return;
+		    }
                     for(let i = 0; i <  obj.users.length; i++) {
 			console.log(i);
                         let data = obj.users;
