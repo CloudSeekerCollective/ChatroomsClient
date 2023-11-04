@@ -981,7 +981,8 @@ function checkForSatellite() {
 		    $(".onlineList").html()
                     let useramount = Object.keys(obj.users).length;
                     for(let i = (Object.keys(obj.users).length - 1); i < useramount; i--) {
-                        let data = obj.messages;
+			console.log(i);
+                        let data = obj.users;
                         //messageAutoscroll(true);
                         let pfp;
                     if(obj.users[i].picture == "") {
