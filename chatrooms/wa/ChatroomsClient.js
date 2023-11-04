@@ -980,7 +980,7 @@ function checkForSatellite() {
                     isDone = true;
 		    $(".onlineList").html()
                     let useramount = Object.keys(obj.users).length;
-                    for(let i = (Object.keys(obj.users).length - 1); i < useramount; i--) {
+                    for(let i = Object.keys(obj.users).length; i < useramount; i--) {
 			console.log(i);
                         let data = obj.users;
                         //messageAutoscroll(true);
