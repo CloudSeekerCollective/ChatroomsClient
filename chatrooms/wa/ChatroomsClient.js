@@ -58,6 +58,7 @@ var things_count = 0;
 var isAdmin = false;
 var emotesListSort = 0;
 var localPresence = "online";
+var checkForContentUpgrade;
 
 window.HTMLElement.prototype.scrollIntoView = function() {};
 
@@ -334,7 +335,7 @@ function checkForSatellite() {
                 $("#whispersV2Modal").modal("show");
             }
     //        $.get(httphost + "/serverproperties.json", function(data, status) {
-                var checkForContentUpgrade = setInterval(function() {
+                checkForContentUpgrade = setInterval(function() {
                     xload();
                     getOnlineUsers();
                     getVCOnlineUsers();
@@ -345,6 +346,7 @@ function checkForSatellite() {
         };
 
         socket.onclose = function(event) {
+	    clearInterval(checkForContentUpgrade);
             publicDisconnectReason = event.wasClean;
             closeEverythingElse("loadingResourcesModal");
             $('#loadingResourcesModal').modal({
