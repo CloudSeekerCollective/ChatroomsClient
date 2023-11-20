@@ -538,6 +538,7 @@ function checkForSatellite() {
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
                     toaster("Saved!");
+		    getOnlineUsers();
                 } else if(obj.action == "editprofile:password") {
                     console.log("[ChatroomsSatellite] Message with editprofile:password intent has been recieved");
                     //$("#meModal").modal("hide");
