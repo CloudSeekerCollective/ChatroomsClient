@@ -2060,6 +2060,8 @@ function getThemes() {
 			console.log("Added painted theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
                     break;
                 }
+	    }
+	}
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
