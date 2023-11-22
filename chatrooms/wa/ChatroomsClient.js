@@ -2053,7 +2053,7 @@ function getThemes() {
             if(true) {
                 switch(data[i].theme_type){
                     case "CHATROOMS_CLASSIC_CSS":
-                        $("#sthemes").html(document.getElementById("sthemes").innerHTML + '<a class="list-group-item list-group-item-action s-theme" id="purpmode" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < 3; x++){$(\'.regular-theme\')[x].classList = $(\'.regular-theme\')[x].classList.toString().replace(\'active\', \'\');}localStorage.setItem(\'theme\',\''data[i].theme_id'\');$(\'html\').attr(\'data-bs-theme\', \''data[i].theme_schematic'\');$(\'#darkmode\')[0].href=\''data[i].theme_url'\';" role="tab">Purple mode</a>');
+                        $("#sthemes").html(document.getElementById("sthemes").innerHTML + '<a class="list-group-item list-group-item-action s-theme" id="theme_'+data[i].theme_id+'" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < 3; x++){$(\'.regular-theme\')[x].classList = $(\'.regular-theme\')[x].classList.toString().replace(\'active\', \'\');}localStorage.setItem(\'theme\',\''+data[i].theme_id+'\');$(\'html\').attr(\'data-bs-theme\', \''++data[i].theme_schematic'\');$(\'#darkmode\')[0].href=\''+data[i].theme_url+'\';" role="tab"><b>'+data[i].theme_name+'</b> by '+data[i].theme_creator+'</a>');
                         console.log("Added legacy theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
                     break;
                     default:
