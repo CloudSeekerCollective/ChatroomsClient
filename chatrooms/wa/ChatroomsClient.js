@@ -2035,6 +2035,42 @@ function getOnlineUsersLegacy() {
     });
 }
 
+function getThemes() {
+    $("#sthemes").html('<div class="spinner-border"></div>');
+    if(localStorage.getItem("si_beta_keycard_staging") != "true")
+        var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/theming.json";
+    else
+        var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/theming-staging.json";
+    $.ajax({url: suggestionUrl, success: function(result, xhr, status) {
+        roomBox = $("#sthemes")[0].innerHTML;
+        let data = result;
+        rooms = data;
+        console.log(Object.keys(data).length);
+        let roomamount = Object.keys(data).length;
+        $("#sthemes").html('');
+        for(let i = 0; i < roomamount; i++) {
+	    // too lazy to remove the legacy function as a whole so just do it anyways
+            if(true) {
+                switch(data[i].theme_type){
+                    case "CHATROOMS_CLASSIC_CSS":
+                        $("#sthemes").html(document.getElementById("sthemes").innerHTML + '<a class="list-group-item list-group-item-action s-theme" id="purpmode" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < 3; x++){$(\'.regular-theme\')[x].classList = $(\'.regular-theme\')[x].classList.toString().replace(\'active\', \'\');}localStorage.setItem(\'theme\',\''data[i].theme_id'\');$(\'html\').attr(\'data-bs-theme\', \''data[i].theme_schematic'\');$(\'#darkmode\')[0].href=\''data[i].theme_url'\';" role="tab">Purple mode</a>');
+                        console.log("Added legacy theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
+                    break;
+                    default:
+			console.log("Added painted theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
+                    break;
+                }
+        }
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    }, error: function(xhr, status, error){
+        toaster(strings.satellite_error);
+        $("#sthemes").html("<div class='alert alert-danger'>"+ strings.satellite_error +"</div>");
+    }});
+}
+
 function getSuggested() {
     $("#suggestedServers").html('<div class="spinner-border"></div>');
     if(localStorage.getItem("si_beta_keycard_staging") != "true")
@@ -2058,7 +2094,7 @@ function getSuggested() {
                     case 0:
                         $("#suggestedServers").html(document.getElementById("suggestedServers").innerHTML + '<div><div class="card"><div class="card-body"><h4>' + data[i].server_name + '</h4>' + data[i].server_motd +'<hr><div class="d-grid gap-2"><button class="btn btn btn-success" onclick=\'doesThatServerExist("' + data[i].server + '",7778,true); innerHTML="Hang tight...";\'>Join</button>'+ reg_link +'</div></div></div></div>');
                         console.log("Added server with id " + data[i].server + " and name " + data[i].server_name);
-                    break;1
+                    break;
                     case 1:
                         $("#suggestedServers").html(document.getElementById("suggestedServers").innerHTML + '<div><div class="card"><div class="card-body"><h4>' + data[i].server_name + ' <i class="bi bi-check-circle-fill text-primary" data-bs-toggle="tooltip" title="This Chatroom is verified because it\'s confirmed to be authentic."></i></h4>' + data[i].server_motd +'<hr><div class="d-grid gap-2"><button class="btn btn btn-success" onclick=\'doesThatServerExist("' + data[i].server + '",7778,true); innerHTML="Hang tight...";\'>Join</button>'+ reg_link +'</div></div></div></div>');
                         //$("#suggestedServers").html(document.getElementById("suggestedServers").innerHTML + '<div class="card"><div class="card-header">' + data[i].server_name + ' <i class="bi bi-check-circle-fill text-primary" data-bs-toggle="tooltip" title="This Chatroom is verified because it\'s confirmed to be authentic."></i></div><div class="card-body">' + data[i].server_motd + reg_link +'</div><div class="card-footer d-grid"><button class="btn btn-success" onclick=\'doesThatServerExist("' + data[i].server + '",7778,true); innerHTML="Hang tight...";\'>Join</button></div></div><br>');
