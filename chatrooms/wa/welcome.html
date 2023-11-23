@@ -1399,7 +1399,7 @@ Version: 0.7.2
 					<div class="tab-pane fade show active" id="list-css" role="tabpanel">
 						<h2 id='customcss_tp'>Customizer</h2><hr>
 	<h4 id='customcss_t'>Custom CSS</h4>
-	<p id='customcss_d'>Put additional customizations to your Chatrooms client! <br>To learn how to do CSS, <a href='https://www.w3schools.com/css/default.asp' target='blank'>click here</a>.</p>
+	<p id='customcss_d'>Put additional customizations to your Chatrooms client! <br>To learn how to do CSS, <a onclick='extLink("https://www.w3schools.com/css/default.asp")' target='blank'>click here</a>.</p>
         <textarea class='cssbox form-control' style='width: 100%; height: 250px;' placeholder='Insert custom css here...'></textarea><br>
 	<button id='acceptcss_b' type="button" class="btn btn-primary btn-block" onclick='$("#css").html($(".cssbox")[0].value); localStorage.setItem("css",$(".cssbox")[0].value);'>Accept</button>
 	<div id='css_s'></div><hr>
@@ -1411,9 +1411,9 @@ Version: 0.7.2
 		<button id='bdarkmode' type="button" class="btn btn-dark btn-block" onclick='$("html").attr("data-bs-theme", "dark"); document.getElementById("darkmode").href = "./dark.css"; localStorage.setItem("theme","dark");'>Dark mode</button>
 	</div>-->
 	<div class="list-group" id="themes" role="tablist">
-		<a class="list-group-item list-group-item-action regular-theme" id="lightmode" data-bs-toggle="list" href='#' onclick="for(let x = 0; x < 4; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','light');$('html').attr('data-bs-theme', 'light');$('#darkmode')[0].href='';" role="tab">Light mode</a>
-		<a class="list-group-item list-group-item-action regular-theme" id="graymode" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < 4; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','gray');$('html').attr('data-bs-theme', 'light');$('#darkmode')[0].href='gray.css';" role="tab">Gray mode</a>
-		<a class="list-group-item list-group-item-action regular-theme" id="darkmode" data-bs-toggle="list" href='#' onclick="for(let x = 0; x < 4; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','dark');$('html').attr('data-bs-theme', 'dark');$('#darkmode')[0].href='dark.css';" role="tab">Dark mode</a>
+		<a class="list-group-item list-group-item-action regular-theme" id="lightmode" data-bs-toggle="list" href='#' onclick="for(let x = 0; x < $('.s-theme').length; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','light');$('html').attr('data-bs-theme', 'light');$('#darkmode')[0].href='';" role="tab">Light mode</a>
+		<a class="list-group-item list-group-item-action regular-theme" id="graymode" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < $('.s-theme').length; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','gray');$('html').attr('data-bs-theme', 'light');$('#darkmode')[0].href='gray.css';" role="tab">Gray mode</a>
+		<a class="list-group-item list-group-item-action regular-theme" id="darkmode" data-bs-toggle="list" href='#' onclick="for(let x = 0; x < $('.s-theme').length; x++){$('.s-theme')[x].classList = $('.s-theme')[x].classList.toString().replace('active', '');}localStorage.setItem('theme','dark');$('html').attr('data-bs-theme', 'dark');$('#darkmode')[0].href='dark.css';" role="tab">Dark mode</a>
 	</div><hr>
 	<h4>Special Themes</h4>
 	<p id='sthememodal_d'>These are special themes created to fit special events or other stuff.<br>Anyways, Pick your Chatrooms theme:</p>
