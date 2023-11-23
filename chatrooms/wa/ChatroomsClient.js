@@ -95,7 +95,6 @@ function emptyEnvironment() {
     globalRetries = 1;
     retries = 0;
     allowMessageLoading = false;
-    contentId = 0;
     mbv = "msgBox";
     emotes = [{
         "happ": "/assets/emotes/happ.png"
@@ -268,7 +267,7 @@ function checkForSatellite() {
         $("#potentialJoinModal").modal("show");
         potentialJoinTriggered = true;
         if(localStorage.getItem("server") != undefined && +localStorage.getItem("authentication") != undefined){
-            $("#pjoin_warning").html("It also looks like you're already logged into a Chatroom! Keep in mind that by joining this Chatroom, you will be logged out of this one and will need to find your credentials to get back in.");
+            $("#pjoin_warning").html("<div class='alert alert-warning'>It also looks like you're already logged into a Chatroom! Keep in mind that by joining this Chatroom, you will be logged out of this one and will need to find your credentials to get back in.</div>");
             $("#pjoin_confirm").on("click", function(){localStorage.removeItem("server"); localStorage.removeItem("token");});
         }
         return;
@@ -1899,7 +1898,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if(platform == "m") $(".settings").load("welcome.html");
     else $(".settings").load("welcome.html");
     console.log("[ChatroomsClient] Ready!");
-
+    getThemes()
     if(localStorage.getItem("locale") == undefined) {
         localStorage.setItem("locale", "en_us");
         $.get("en_us.json", function(data, status) {
@@ -2055,6 +2054,10 @@ function getThemes() {
                     case "CHATROOMS_CLASSIC_CSS":
                         $("#sthemes").html(document.getElementById("sthemes").innerHTML + '<a class="list-group-item list-group-item-action s-theme" id="theme_'+data[i].theme_id+'" data-bs-toggle="list" href="#" onclick="for(let x = 0; x < 3; x++){$(\'.regular-theme\')[x].classList = $(\'.regular-theme\')[x].classList.toString().replace(\'active\', \'\');}localStorage.setItem(\'theme\',\''+data[i].theme_id+'\');$(\'html\').attr(\'data-bs-theme\', \''+data[i].theme_schematic+'\');$(\'#darkmode\')[0].href=\''+data[i].theme_url+'\';" role="tab"><b>'+data[i].theme_name+'</b> by '+data[i].theme_creator+'</a>');
 			console.log("Added legacy theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
+			if(localStorage.getItem("theme") == data[i].theme_id){
+	    			document.getElementById("darkmode").href = data[i].theme_url;
+				$("html").attr("data-bs-theme", data[i].theme_schematic);
+    			}
                     break;
                     default:
 			console.log("Added painted theme with id " + data[i].theme_id + " and name " + data[i].theme_name);
