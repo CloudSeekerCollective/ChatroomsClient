@@ -59,6 +59,7 @@ var isAdmin = false;
 var emotesListSort = 0;
 var localPresence = "online";
 var checkForContentUpgrade;
+var userAccountStore = [];
 
 window.HTMLElement.prototype.scrollIntoView = function() {};
 
@@ -166,6 +167,18 @@ function getEmotes(emotesData, sortBy){
     }
 }
 
+function resetSettingsToDefaults(){
+	localStorage.setItem("si_joinmsg", true);
+	localStorage.setItem("si_attachments", true);
+	localStorage.setItem("si_clearchat", false);
+	localStorage.setItem("si_slashcomms", true);
+	localStorage.setItem("si_emoteslist", true);
+	localStorage.setItem("si_push_notis", true);
+	localStorage.setItem("si_push_wisp", true);
+	localStorage.setItem("si_pings", true);
+	localStorage.setItem("si_push_presence", false);
+}
+
 function updateConfiguration() {
             xload();
             if(localStorage.getItem("css") != "")
@@ -174,58 +187,39 @@ function updateConfiguration() {
             if(localStorage.getItem("si_joinmsg") == "true") {
                 $("#joinmsg").attr("checked", true);
             }
-            else if(localStorage.getItem("si_joinmsg") != "true" || localStorage.getItem("si_joinmsg") != "false"){
-                localStorage.setItem("si_joinmsg", true);
-                $("#joinmsg").attr("checked", true);
-            }
 
             if(localStorage.getItem("si_attachments") == "true") {
                 $("#show_attch").attr("checked", true);
                 $("#attachment_button").css("display", "inline-block");
             }
-            else if(localStorage.getItem("si_attachments") != "true" || localStorage.getItem("si_attachments") != "false"){
-                localStorage.setItem("si_attachments", true);
-                $("#show_attch").attr("checked", true);
-            }
-            else if(localStorage.getItem("si_attachments") == "false"){
+            else{
                 $("#attachment_button").css("display", "none");
             }
             if(localStorage.getItem("si_clearchat") == "true") {
                 $("#show_clear").attr("checked", true);
                 $("#clear_button").css("display", "inline-block");
             }
-            else if(localStorage.getItem("si_clearchat") != "true" || localStorage.getItem("si_clearchat") != "false"){
-                localStorage.setItem("si_clearchat", false);
-                $("#show_clear").attr("checked", false);
-            }
-            else if(localStorage.getItem("si_clearchat") == "false"){
+            else{
                 $("#clear_button").css("display", "none");
             }
             if(localStorage.getItem("si_slashcomms") == "true") {
                 $("#show_slash").attr("checked", true);
                 $("#slash_button").css("display", "inline-block");
             }
-            else if(localStorage.getItem("si_slashcomms") != "true" || localStorage.getItem("si_slashcomms") != "false"){
-                localStorage.setItem("si_slashcomms", false);
-                $("#show_slash").attr("checked", false);
-            }
-            else if(localStorage.getItem("si_slashcomms") == "false"){
+            else{
                 $("#slash_button").css("display", "none");
             }
+	
             if(localStorage.getItem("si_emoteslist") == "true") {
                 $("#show_emotes").attr("checked", true);
                 $("#emotes_button").css("display", "inline-block");
             }
-            else if(localStorage.getItem("si_emoteslist") != "true" || localStorage.getItem("si_emoteslist") != "false"){
-                localStorage.setItem("si_emoteslist", true);
-                $("#show_emotes").attr("checked", true);
-            }
-            else if(localStorage.getItem("si_emoteslist") == "false"){
+            else{
                 $("#emotes_button").css("display", "none");
             }
 
             if(localStorage.getItem("si_push_notis") == "true") {
-                $("#pushes").attr("checked", true);
+                $("#pushes")[0].checked = true;
             }
 
             if(localStorage.getItem("si_push_wisp") == "true") {
@@ -486,7 +480,7 @@ function checkForSatellite() {
                         if(!document.hasFocus() && localStorage.getItem("si_pings") == "true") {
                             audio.play();
                         }
-                        if(obj.msg.includes("@" + localAccountName) && localStorage.getItem("si_pushes_pings") == "true") {
+                        if(obj.msg.includes("@" + localAccountName) && localStorage.getItem("si_pings") == "true") {
                             audio.play();
                             htoaster(obj.user, "pinged you in #" + channels[obj.channel] + ": " + obj.msg);
                             if(localStorage.getItem("si_push_notis") == "true" && localPresence != "dnd"){
