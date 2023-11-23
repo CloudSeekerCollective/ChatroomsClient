@@ -504,7 +504,7 @@ function checkForSatellite() {
                     $("#message-" + obj.msgid).html(linker(content));
                 } else if(obj.action == "join") {
                     console.log("[ChatroomsSatellite] Message with join intent has been recieved");
-                    if(!localChannel.startsWith("x") && localStorage.getItem("si_joinmsg") == true)
+                    if(!localChannel.startsWith("x") && localStorage.getItem("si_joinmsg") == "true")
                         addMessage(obj.user, "<i>" + strings.satellite_join_intent + "</i>", 0, obj.uid, true, dateObj, false, true, false, obj.msgid);
                     $('.messageSpace').animate({
                         scrollTop: overallMessageAmount * 100000
