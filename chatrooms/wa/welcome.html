@@ -38,29 +38,31 @@ if(typeof(Storage) !== "undefined")
 		audio.volume = 1;
 	}
 
-	if(platform = 'm') document.getElementById("darkmode").href = localStorage.getItem("theme") + ".css";
+	/*if(platform = 'm') document.getElementById("darkmode").href = localStorage.getItem("theme") + ".css";
 	else  document.getElementById("darkmode").href = localStorage.getItem("theme") + ".css";
 	if(localStorage.getItem("theme") != undefined)$("#" + localStorage.getItem("theme") + "mode")[0].classList += " active";
 	if(localStorage.getItem("theme") == "dark" || localStorage.getItem("theme") == "purp" || localStorage.getItem("theme") == "retro"){
 		$("html").attr("data-bs-theme", "dark");
 		console.log("Dark theme selected");
 		//document.getElementById("darkmode").href = "./.css";	
-	}
-	/*if(localStorage.getItem("theme") == "dark"){
+	}*/
+	if(localStorage.getItem("theme") == "dark"){
+		$("html").attr("data-bs-theme", "dark");
 		console.log("Dark theme selected");
-		document.getElementById("darkmode").href = "./dark.css";	
+		document.getElementById("darkmode").href = "dark.css";	
 	}
 	else if(localStorage.getItem("theme") == "gray"){
+		$("html").attr("data-bs-theme", "light");
 		console.log("Gray theme selected");
-		document.getElementById("darkmode").href = "./gray.css";	
+		document.getElementById("darkmode").href = "gray.css";	
 	}
-	else if(localStorage.getItem("theme") == "christmas"){
+	/*else if(localStorage.getItem("theme") == "christmas"){
 		console.log("Gray theme selected");
 		document.getElementById("darkmode").href = "./christmas.css";	
-	}
+	}*/
 	else{
 		document.getElementById("darkmode").href = "";
-	}*/
+	}
 	beginStringery();
 } 
 else{
