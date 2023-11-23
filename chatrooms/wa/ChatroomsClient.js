@@ -981,7 +981,7 @@ function checkForSatellite() {
 			    return;
 		    }
                     for(let i = 0; i <  obj.users.length; i++) {
-			console.log(i);
+			vbLog(i);
                         let data = obj.users;
                         //messageAutoscroll(true);
                         let pfp;
@@ -1897,6 +1897,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("locale", "en_us");
         $.get("en_us.json", function(data, status) {
             $("#loadmodal").html("Preparing for first time launch...");
+	    resetSettingsToDefaults()
             strings = data;
             console.log("[ChatroomsClient] Locale settings weren't set, defaulting to en_us!");
             let firstTimeLoad = setTimeout(function(){
@@ -1915,9 +1916,9 @@ document.addEventListener("DOMContentLoaded", function() {
             addMessage("System", strings.satellite_already_connecting, 0, 0, true, now_new, true);
             const d = new Date();
             if(d.getMonth() == 11 && d.getDate() == 25) {
-                addMessage("Jolly System", "Merry Christmas!", 0, 0, true, now_new, true);
+                addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
             } else if(d.getMonth() == 0 && d.getDate() == 7) {
-                addMessage("Jolly System", "Merry Christmas!", 0, 0, true, now_new, true);
+                addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
             }
 
             $("body").keyup(function(e) {
