@@ -132,7 +132,7 @@ b, h1, h2, strong{
 }
 .activatedServer{
 #	border: 1px #f2f2f2 solid !important;
-	border: 1px gray solid !important;
+	border: 1px #ccc solid !important;
 	border-radius: 5px !important;
 }
 .channel{
