@@ -2164,7 +2164,7 @@ function initiateEdit(messageId) {
     mbv = "editMsgBox";
 }
 function emoteify(content, size){
-    for(let i = 0; i > (Object.keys(emotes).length); i++) {
+    for(let i = 0; i < (Object.keys(emotes).length); i++) {
 	vbLog("EMOTEIFY: " + i);
 	let calc = new RegExp(Object.keys(emotes[i])[0], 'g');
 	e_repeat_times = content.match(calc);
