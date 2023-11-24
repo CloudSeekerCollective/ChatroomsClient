@@ -2171,7 +2171,7 @@ function emoteify(content, size){
 	let calc = new RegExp(Object.keys(emotes[i])[0], 'g');
 	let repeat_times = content.match(calc);
 	if(repeat_times != null){
-		for(let o = 0; o > repeat_times.length; o++){
+		for(let o = 0; o < repeat_times.length; o++){
 			vbLog("EMOTEIFY: " + o);
         		let lol = Object.keys(emotes[i])[0];
         		content = content.replace(":" + Object.keys(emotes[i])[0] + ":", "<img src='" + emotes[i][lol] + "' width='" + size + "' height='" + size + "'>");
