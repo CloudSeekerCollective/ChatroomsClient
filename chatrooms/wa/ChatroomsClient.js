@@ -549,9 +549,9 @@ function checkForSatellite() {
 		    }
                 } else if(obj.action == "channel") {
                     channels[obj.id] = obj.name;
-                    $(".channels").html(document.getElementsByClassName("channels")[0].innerHTML + "<button id='channel_" + obj.id + "' class='server emerg activatedServer' onclick='localChannel = " + obj.id + "; getOlderMessages(); addMessage(\"System\", strings.channels_switch + \"#" + obj.name + "\", 0, 0, true, now_new, true); xload();'><span class='channel-dot'><i class='bi bi-hash' title='Text'></i>•</span> <span class='channel-name'>" + obj.name + "</span></button><br>\n");
+                    $(".channels").html(document.getElementsByClassName("channels")[0].innerHTML + "<button id='channel_" + obj.id + "' class='server emerg activatedServer' onclick='localChannel = " + obj.id + "; getOlderMessages(); addMessage(\"System\", strings.channels_switch + \"#" + obj.name + "\", 0, 0, true, now_new, true); xload();'><span class='channel-dot'><i class='bi bi-hash' title='Text'></i>&nbsp;•&nbsp;</span> <span class='channel-name'>" + obj.name + "</span></button><br>\n");
                 } else if(obj.action == "vchannel") {
-                    $(".vchannels").html(document.getElementsByClassName("vchannels")[0].innerHTML + "<button id='vchannel_" + obj.id + "' class='server emerg activatedServer vc' onclick='vchannel = " + obj.id + "; checkForVSatellite();'><span class='channel-dot'><i class='bi bi-mic' title='Voice'></i>•</span> " + obj.name + "</button><br>\n");
+                    $(".vchannels").html(document.getElementsByClassName("vchannels")[0].innerHTML + "<button id='vchannel_" + obj.id + "' class='server emerg activatedServer vc' onclick='vchannel = " + obj.id + "; checkForVSatellite();'><span class='channel-dot'><i class='bi bi-mic' title='Voice'></i>&nbsp;•&nbsp;</span> " + obj.name + "</button><br>\n");
                 } else if(obj.action == "onlineuser") {
                     let pfp;
                     if(obj.picture == "") {
@@ -1151,7 +1151,7 @@ function loadDMs() {
         		{
         			let y = 0;
         			vbLog("Add DM button for this user");
-                        	$("#whispers").html($("#whispers")[0].innerHTML + "<button id='dm_0' class='server emerg activatedServer' onclick='initiateWhisper(\""+ objdms[x][y].dms.id +"\", true); addMessage(&quot;System&quot;, &quot;You are now whispering to " + objdms[x][y].dms.username + "&quot;, 0, 0, true, now_new, true); messageAutoscroll();'><span class='channel-dot'><i class='bi bi-chat-left-text-fill' title='Whisper'></i> •</span> " + objdms[x][y].dms.username + "</button>");
+                        	$("#whispers").html($("#whispers")[0].innerHTML + "<button id='dm_0' class='server emerg activatedServer' onclick='initiateWhisper(\""+ objdms[x][y].dms.id +"\", true); addMessage(&quot;System&quot;, &quot;You are now whispering to " + objdms[x][y].dms.username + "&quot;, 0, 0, true, now_new, true); messageAutoscroll();'><span class='channel-dot'><i class='bi bi-chat-left-text-fill' title='Whisper'></i>&nbsp;•&nbsp;</span> " + objdms[x][y].dms.username + "</button>");
         		}
 		}
         }
