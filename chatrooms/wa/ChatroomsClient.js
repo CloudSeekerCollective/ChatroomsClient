@@ -60,7 +60,7 @@ var emotesListSort = 0;
 var localPresence = "online";
 var checkForContentUpgrade;
 var userAccountStore = [];
-var e_repeat_times;
+var e_repeat_times = [];
 
 window.HTMLElement.prototype.scrollIntoView = function() {};
 
