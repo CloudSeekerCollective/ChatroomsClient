@@ -2165,10 +2165,12 @@ function initiateEdit(messageId) {
 }
 function emoteify(content, size){
     for(let i = 0; i > (Object.keys(emotes).length); i++) {
+	vbLog("EMOTEIFY: " + i);
 	let calc = new RegExp(Object.keys(emotes[i])[0], 'g');
 	e_repeat_times = content.match(calc);
 	console.log(e_repeat_times.length)
 	for(let o = 0; o < e_repeat_times.length; o++){
+		vbLog("EMOTEIFY: " + o);
         	let lol = Object.keys(emotes[i])[0];
         	content = content.replace(":" + Object.keys(emotes[i])[0] + ":", "<img src='" + emotes[i][lol] + "' width='" + size + "' height='" + size + "'>");
 	}
