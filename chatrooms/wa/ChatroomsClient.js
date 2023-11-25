@@ -487,9 +487,9 @@ function checkForSatellite() {
                             if(localStorage.getItem("si_push_notis") == "true" && localPresence != "dnd"){
 				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 				for(let i = 0; i < (userAccountStore.length); i++) {
-					if(userAccountStore[i] != null){
-						if(userAccountStore[i].username == obj.user){
-							icon = userAccountStore[i].picture;
+					if(userAccountStore[i+1] != null){
+						if(userAccountStore[i+1].username == obj.user){
+							icon = userAccountStore[i+1].picture;
 						}
 					}
 				}
@@ -522,9 +522,9 @@ function checkForSatellite() {
                     if(localStorage.getItem("si_push_presence") == "true" && localPresence != "dnd"){
 			let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 			for(let i = 0; i < (userAccountStore.length); i++) {
-				if(userAccountStore[i] != null){
-					if(userAccountStore[i].username == obj.user){
-						icon = userAccountStore[i].picture;
+				if(userAccountStore[i+1] != null){
+					if(userAccountStore[i+1].username == obj.user){
+						icon = userAccountStore[i+1].picture;
 					}
 				}
 			}
@@ -639,9 +639,9 @@ function checkForSatellite() {
                             if(localStorage.getItem("si_push_notis") == "true"){
 				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 				for(let i = 0; i < (userAccountStore.length); i++) {
-					if(userAccountStore[i] != null){
-						if(userAccountStore[i].username == obj.user){
-							icon = userAccountStore[i].picture;
+					if(userAccountStore[i+1] != null){
+						if(userAccountStore[i+1].username == obj.user){
+							icon = userAccountStore[i+1].picture;
 						}
 					}
 				}
