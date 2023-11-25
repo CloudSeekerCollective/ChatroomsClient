@@ -487,8 +487,10 @@ function checkForSatellite() {
                             if(localStorage.getItem("si_push_notis") == "true" && localPresence != "dnd"){
 				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 				for(let i = 0; i < (userAccountStore.length); i++) {
-					if(userAccountStore[i].username == obj.user){
-						icon = userAccountStore[i].picture;
+					if(userAccountStore[i] != null){
+						if(userAccountStore[i].username == obj.user){
+							icon = userAccountStore[i].picture;
+						}
 					}
 				}
                                 let noti = new Notification(obj.user + " pinged you in #"+ channels[obj.channel] +":", {body: obj.msg, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
@@ -520,8 +522,10 @@ function checkForSatellite() {
                     if(localStorage.getItem("si_push_presence") == "true" && localPresence != "dnd"){
 			let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 			for(let i = 0; i < (userAccountStore.length); i++) {
-				if(userAccountStore[i].username == obj.user){
-					icon = userAccountStore[i].picture;
+				if(userAccountStore[i] != null){
+					if(userAccountStore[i].username == obj.user){
+						icon = userAccountStore[i].picture;
+					}
 				}
 			}
                         let noti = new Notification(obj.user, {body: strings.satellite_join_intent, icon: icon});
@@ -635,8 +639,10 @@ function checkForSatellite() {
                             if(localStorage.getItem("si_push_notis") == "true"){
 				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
 				for(let i = 0; i < (userAccountStore.length); i++) {
-					if(userAccountStore[i].username == obj.user){
-						icon = userAccountStore[i].picture;
+					if(userAccountStore[i] != null){
+						if(userAccountStore[i].username == obj.user){
+							icon = userAccountStore[i].picture;
+						}
 					}
 				}
                                 let noti = new Notification(obj.user + " whispers to you:", {body: obj.msg, icon: icon});
