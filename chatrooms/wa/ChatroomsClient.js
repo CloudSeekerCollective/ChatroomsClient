@@ -2215,20 +2215,20 @@ function addMessage(author, ocontent, type, authorId, force, timestamp, isSystem
             }
 
             if(messageId == undefined) {
-                isSpoofed = "<span title='This message might have been spoofed or sent on an older version of Chatrooms'>Warning</span> "
+                isSpoofed = "<span title='This message might have been spoofed or sent on an older version of Chatrooms'>[Client]</span> "
             }
 
             if(areMessagesSaved) {
                 if(isAuthor == undefined || isAuthor /*&& messageId != undefined*/ ) {
-                    $(".messageSpace").html(msgBox + "<div class='message systemMessage'>" + isSpoofed + "<a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent' id='message-" + messageId + "'>" + content + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small> <a href='#' data-bs-toggle='dropdown' aria-expanded='false'><i class=\"bi bi-three-dots\"></i></a><ul class='dropdown-menu'><li><a class='dropdown-item' onclick='initiateEdit(\"" + messageId + "\",)' href='#'>Edit</a></li><li><a class='dropdown-item' href='#' onclick='deleteMessage(\"" + messageId + "\");'>Delete</a></li><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ ocontent +"\"); toaster(\"Copied message content to clipboard!\");' href='#'>Copy Message Content</a></li><li><hr class='dropdown-divider'></hr><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ messageId +"\"); toaster(\"Copied message ID to clipboard!\");' href='#'>Copy Message ID</a></li></ul></div>\n");
+                    $(".messageSpace").html(msgBox + "<div class='message systemMessage'>" + isSpoofed + "<a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent' id='message-" + messageId + "'>" + linker(emoteify(content, 32)) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small> <a href='#' data-bs-toggle='dropdown' aria-expanded='false'><i class=\"bi bi-three-dots\"></i></a><ul class='dropdown-menu'><li><a class='dropdown-item' onclick='initiateEdit(\"" + messageId + "\",)' href='#'>Edit</a></li><li><a class='dropdown-item' href='#' onclick='deleteMessage(\"" + messageId + "\");'>Delete</a></li><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ ocontent +"\"); toaster(\"Copied message content to clipboard!\");' href='#'>Copy Message Content</a></li><li><hr class='dropdown-divider'></hr><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ messageId +"\"); toaster(\"Copied message ID to clipboard!\");' href='#'>Copy Message ID</a></li></ul></div>\n");
                 } else {
-                    $(".messageSpace").html(msgBox + "<div class='message systemMessage'><a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent' id='message-" + messageId + "'>" + content + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small> <a href='#' data-bs-toggle='dropdown' aria-expanded='false'><i class=\"bi bi-three-dots\"></i></a><ul class='dropdown-menu'><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ ocontent +"\"); toaster(\"Copied message content to clipboard!\");' href='#'>Copy Message Content</a></li><li><hr class='dropdown-divider'></hr><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ messageId +"\"); toaster(\"Copied message ID to clipboard!\");' href='#'>Copy Message ID</a></li></ul></div>\n");
+                    $(".messageSpace").html(msgBox + "<div class='message systemMessage'><a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent' id='message-" + messageId + "'>" + linker(emoteify(content, 32)) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small> <a href='#' data-bs-toggle='dropdown' aria-expanded='false'><i class=\"bi bi-three-dots\"></i></a><ul class='dropdown-menu'><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ ocontent +"\"); toaster(\"Copied message content to clipboard!\");' href='#'>Copy Message Content</a></li><li><hr class='dropdown-divider'></hr><li><a class='dropdown-item' onclick='navigator.clipboard.writeText(\""+ messageId +"\"); toaster(\"Copied message ID to clipboard!\");' href='#'>Copy Message ID</a></li></ul></div>\n");
                 }
             } else {
-                $(".messageSpace").html(msgBox + "<div class='message systemMessage'><a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + content + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n");
+                $(".messageSpace").html(msgBox + "<div class='message systemMessage'><a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + linker(emoteify(content, 32)) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n");
             }
         } else {
-            $(".messageSpace").html(msgBox + "<div class='message systemMessage'><span title='This is a system message. Only you can see this. It will disappear if you switch channels.'>🛰️</span> <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + content + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n");
+            $(".messageSpace").html(msgBox + "<div class='message systemMessage'><span title='This is a system message. Only you can see this. It will disappear if you switch channels.'>🛰️</span> <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + linker(emoteify(content, 32)) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n");
         }
     }
 }
@@ -2239,12 +2239,12 @@ function addWhisper(author, ocontent, type, authorId, force, isAuthor, recipient
     msgBox = document.getElementsByClassName("messageSpace")[0].innerHTML;
     // youll see why im doing this later on
     let content = ocontent;
-    startAdding(author, linker(emoteify(content)), type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId)
+    startAdding(author, linker(emoteify(content, 32)), type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId)
     if(actualMsgBox.length == 0 && force == false) {
         $(".messageSpace").html(msgBox + "<div class='message systemMessage systemError'><a href='#' class='author' onclick='userInfo(\"0\", \"System\");'>[System]</a>&nbsp;<span class='messageContent'>You cannot send empty messages.</span></div>\n");
     } else {
         // use this later: <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");'>
-        $(".messageSpace").html(msgBox + "<div class='message systemMessage whisper' style='opacity: 0.5;'>" + author + ": <span class='messageContent'>" + content + "</span></div>\n");
+        $(".messageSpace").html(msgBox + "<div class='message systemMessage whisper' style='opacity: 0.5;'>" + author + ": <span class='messageContent'>" + linker(emoteify(content, 32)) + "</span></div>\n");
     }
 }
 
