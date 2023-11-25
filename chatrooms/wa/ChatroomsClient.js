@@ -485,6 +485,12 @@ function checkForSatellite() {
                             audio.play();
                             htoaster(obj.user, "pinged you in #" + channels[obj.channel] + ": " + obj.msg);
                             if(localStorage.getItem("si_push_notis") == "true" && localPresence != "dnd"){
+				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
+				for(let i = 0; i < (userAccountStore.length); i++) {
+					if(userAccountStore[i].username == obj.user){
+						icon = userAccountStore[i].picture;
+					}
+				}
                                 let noti = new Notification(obj.user + " pinged you in #"+ channels[obj.channel] +":", {body: obj.msg, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
                             }
                         }
@@ -512,7 +518,13 @@ function checkForSatellite() {
                     }, 'fast');
                     getOnlineUsers();
                     if(localStorage.getItem("si_push_presence") == "true" && localPresence != "dnd"){
-                        let noti = new Notification(obj.user, {body: strings.satellite_join_intent, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
+			let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
+			for(let i = 0; i < (userAccountStore.length); i++) {
+				if(userAccountStore[i].username == obj.user){
+					icon = userAccountStore[i].picture;
+				}
+			}
+                        let noti = new Notification(obj.user, {body: strings.satellite_join_intent, icon: icon});
                     }
                 } else if(obj.action == "leave") {
                     console.log("[ChatroomsSatellite] Message with leave intent has been recieved");
@@ -621,7 +633,13 @@ function checkForSatellite() {
                             if(localStorage.getItem("si_pings") == "true")
                                 audio.play();
                             if(localStorage.getItem("si_push_notis") == "true"){
-                                let noti = new Notification(obj.user + " whispers to you:", {body: obj.msg, icon: "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png"});
+				let icon = "https://cloudseeker.xyz/chatrooms/wa/WatermarkSatelliteEnabled.png";
+				for(let i = 0; i < (userAccountStore.length); i++) {
+					if(userAccountStore[i].username == obj.user){
+						icon = userAccountStore[i].picture;
+					}
+				}
+                                let noti = new Notification(obj.user + " whispers to you:", {body: obj.msg, icon: icon});
                             }
                         }
                     //addWhisper(obj.user, obj.msg, 0, obj.uid, true, isTheAuthor, obj.recipient);
@@ -630,11 +648,12 @@ function checkForSatellite() {
                     }, 'fast');
                 } else if(obj.action == "user") {
                     isDone = true;
-                    console.log(obj.status);
+                    vbLog(obj.status);
 		    let extra_badges = "";
                     let udateObjF = new Date(obj.creationDate * 1000);
                     let udateObj = udateObjF.toLocaleString();
                     if(obj.xstatus == "success") {
+			userAccountStore[obj.id] = obj;
                         console.log("[ChatroomsClient] got response");
                         $("#accountInfoCreationDate_O").html(strings.modal_user_info_createdon + udateObj);
                         $("#accountInfoLastLoginDate_O").html( /*strings.modal_user_info_lastseen + obj.lastLoginDate*/ "");
