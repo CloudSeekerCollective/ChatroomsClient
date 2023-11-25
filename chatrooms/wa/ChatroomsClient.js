@@ -2239,13 +2239,7 @@ function addWhisper(author, ocontent, type, authorId, force, isAuthor, recipient
     msgBox = document.getElementsByClassName("messageSpace")[0].innerHTML;
     // youll see why im doing this later on
     let content = ocontent;
-    for(let i = 0; i < (Object.keys(emotes).length); i++) {
-        let lol = Object.keys(emotes[i])[0];
-        content = content.replace(":" + Object.keys(emotes[i])[0] + ":", "<img src='" + emotes[i][lol] + "' width='32' height='32'>");
-        if(i == (Object.keys(emotes).length)) {
-            startAdding(author, content, type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId)
-        }
-    }
+    startAdding(author, linker(emoteify(content)), type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId)
     if(actualMsgBox.length == 0 && force == false) {
         $(".messageSpace").html(msgBox + "<div class='message systemMessage systemError'><a href='#' class='author' onclick='userInfo(\"0\", \"System\");'>[System]</a>&nbsp;<span class='messageContent'>You cannot send empty messages.</span></div>\n");
     } else {
