@@ -408,15 +408,19 @@ function checkForSatellite() {
                             break;
                         case "user_already_online":
                             addMessage("System", "<span style='color:#ff4d4d;'>You're already online on another device! (user_already_online)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("You're already online on another device!");
+                            $("#actual_disconnect_reason").html("You're online on too many devices!");
                             break;
                         case "or_you_will_get_clapped":
                             addMessage("System", "<span style='color:#ff4d4d;'>You have been banned from this Chatroom! (or_you_will_get_clapped)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("You have been banned from this chatroom!");
+                            $("#actual_disconnect_reason").html("You have been banned from this Chatroom!");
                             break;
                         case "email_not_set":
+			    var update_link = "";
+			    if(obj.update_link != undefined){
+				    update_link = "<br><a href='"+ obj.update_link +"?token="+ token +"'>Click here to verify your email address...</a>";
+			    }
                             addMessage("System", "<span style='color:#ff4d4d;'>You need to verify your email to continue to this Chatroom! You can do that <a href='/chatrooms/login/2fa/index.php'>here</a> (email_not_set)</span>", 0, 0, true, dateObj, true, true);
-                            $("#actual_disconnect_reason").html("You need to verify your email to continue to this Chatroom! Check your inbox then visit the email verification page of the Chatroom.");
+                            $("#actual_disconnect_reason").html("You need to verify your email to continue to this Chatroom!" + update_link);
                             break;
                         default:
                             addMessage("System", "<span style='color:#ff4d4d;'>Critical error while connecting! I don't know what happened.</span>", 0, 0, true, dateObj, true, true);
