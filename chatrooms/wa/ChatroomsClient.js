@@ -595,6 +595,10 @@ function checkForSatellite() {
                     if(obj.uid == localAccount) {
                         isTheAuthor = true;
                     }
+			if(localStorage.getItem("has_discovered_whispers") == undefined) {
+				localStorage.setItem("has_discovered_whispers", "true");
+				addMessage("System", "You've received a Whisper! Whispers are messages that aren't stored, and that only the recipient and the sender can see. To whisper back, search for the sender's profile, click Whisper and type away. To switch back to a channel, click on any channel.", 0, 0, true, dateObj, true, true);
+			}
                         if(obj.attachment1 != "") {
 			    obj.attachment1 = httphost + obj.attachment1;
                             overallMessageAmount++;
