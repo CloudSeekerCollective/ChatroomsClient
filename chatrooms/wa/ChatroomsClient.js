@@ -1953,7 +1953,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
 		toaster("The CloudSeeker Collective wishes you a Merry Christmas!");
             } else if(d.getMonth() == 0 && d.getDate() == 7) {
-                addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);]
+                addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
 		toaster("The CloudSeeker Collective wishes you a Merry Christmas!");
             }
 
