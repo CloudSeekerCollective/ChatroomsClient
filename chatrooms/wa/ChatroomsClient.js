@@ -242,6 +242,10 @@ function updateConfiguration() {
                 $("#pushes_wisp").attr("checked", true);
             }
 
+            if(localStorage.getItem("si_pings") == "true") {
+                $("#pings").attr("checked", true);
+            }
+	
             if(localStorage.getItem("si_push_pings") == "true") {
                 $("#pushes_pings").attr("checked", true);
             }
