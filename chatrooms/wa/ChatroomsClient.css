@@ -15,7 +15,7 @@ b, h1, h2, strong{
 }
 .messageSpace{
 	margin-left: none;
-	height: 700px;
+	height: 650px;
 	overflow: auto;
 }
 .actualMessageSpace{
@@ -71,7 +71,7 @@ b, h1, h2, strong{
 #whispers, .channels, .x, .vchannels{
 	padding: 5px;
 	/*background: #f2f2f2;*/
-	font-size: 18px;
+	font-size: 22px;
 	height: auto;
 	margin-left: 5px !important;
 	overflow: auto;

@@ -65,8 +65,9 @@ var e_repeat_times = [];
 window.HTMLElement.prototype.scrollIntoView = function() {};
 
 function messageAutoscroll(force){
-    $('.messageSpace').animate({
-        scrollTop: overallMessageAmount * 100000
+    let e = document.getElementById(localChannel + '-pane');
+    $(e).animate({
+        scrollTop: 2000000000
     }, 'fast');
     return;
 
@@ -144,6 +145,20 @@ function linker(str) {
     if(str.toString().includes("https://")){
         for(let x = 0; x < (str.match(/https/g) || []).length; x++){
             finalstring = finalstring.toString().replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, "<a href='#' onclick='extLink(\"$1\")'>$1</a>");
+        }
+    }
+    for(let i = 0; i < (userAccountStore.length); i++) {
+	if(userAccountStore[i] != null){
+            let s = userAccountStore[i].username;
+            finalstring = finalstring.toString().replace(new RegExp("@" + s, "gi"), '<a href="#" style="text-decoration: none;" onclick="userInfoByScreenName(\''+userAccountStore[i].username+'\')">@'+userAccountStore[i].username+'</a>');
+        }
+    }
+    if(channels != undefined){
+        for(let i = 0; i < (channels.length); i++) {
+	    if(channels[i] != null){
+                let s = channels[i];
+                finalstring = finalstring.toString().replace(new RegExp("#" + s, "gi"), '<a href="#" style="text-decoration: none;" onclick="spawnTab(\''+i+'\')">#'+channels[i]+'</a>');
+            }
         }
     }
     return finalstring;
@@ -310,7 +325,7 @@ function checkForSatellite() {
         socket.onopen = function() {
             xload();
             updateConfiguration();
-
+            beginStringery();
             console.log("[ChatroomsSatellite] Connected.");
             $(".channels").html("");
             $(".vchannels").html("");
@@ -337,6 +352,7 @@ function checkForSatellite() {
                 }, 30000);
       //      });
             keepAlive();
+            //toaster("Keep in mind that this is early access! Bugs may be frequent, unfinished features may be visible, be sure to send feedback in Chatrooms Hometown!");
         };
 
         socket.onclose = function(event) {
@@ -428,9 +444,10 @@ function checkForSatellite() {
                             break;
                     }
                 }
-                if(obj.action == "message") {
+                switch(obj.action){
+                    case "message":
                     console.log("[ChatroomsSatellite] Message with message intent has been recieved");
-                    let isTheAuthor = false;
+                    var isTheAuthor = false;
                     if(obj.uid == localAccount) {
                         isTheAuthor = true;
                     }
@@ -438,44 +455,45 @@ function checkForSatellite() {
                         if(obj.attachment1 != "") {
 			    obj.attachment1 = httphost + obj.attachment1;
                             overallMessageAmount++;
+                            console.log(emoteify(linker(obj.msg + " <i class='bi bi-filetype-png'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>")));
                             var filetype = obj.attachment1.substring(obj.attachment1.length - 4, obj.attachment1.length);
                             switch(filetype) {
                                 case ".png":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-png'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-png'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
-                                case ".jpg":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                case ".jpg":1
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case "jpeg":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='#' onclick=';'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='#' onclick=';'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case ".gif":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-gif'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-gif'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case ".mp4":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp4'></i><br> <video width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='video/mp4'>UPDATE YOUR BROWSER TO VIEW THIS VIDEO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp4'></i><br> <video width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='video/mp4'>UPDATE YOUR BROWSER TO VIEW THIS VIDEO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case "webm":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp4'></i><br> <video width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='video/webm'>UPDATE YOUR BROWSER TO VIEW THIS VIDEO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp4'></i><br> <video width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='video/webm'>UPDATE YOUR BROWSER TO VIEW THIS VIDEO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case ".ogg":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp3'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/ogg'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp3'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/ogg'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case "webp":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-png'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-png'></i><br><a href='#' onclick='setAttachmentPreview(\""+ obj.attachment1 +"\");;'><img width='40%' height='40%' src='" + obj.attachment1 + "' class='rounded'></a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case ".mp3":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp3'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/ogg'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-mp3'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/ogg'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 case ".wav":
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-wav'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/wav'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-wav'></i><br> <audio width='40%' height='40%' controls><source src='" + obj.attachment1 + "' type='audio/wav'>UPDATE YOUR BROWSER LISTEN TO THIS AUDIO</video> ", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                                 default:
-                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='" + obj.attachment1 + "' download>Download attachment " + obj.attachment1 + "</a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true);
+                                    addMessage(obj.user, obj.msg + " <i class='bi bi-filetype-jpg'></i><br><a href='" + obj.attachment1 + "' download>Download attachment " + obj.attachment1 + "</a>", 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, true, obj.channel);
                                     break;
                             }
                         } else {
-                            addMessage(obj.user, obj.msg, 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid);
+                            addMessage(obj.user, obj.msg, 0, obj.uid, true, dateObj, false, true, isTheAuthor, obj.msgid, false, obj.channel);
                         }
                         if(!document.hasFocus()) {
                             //audio.play();
@@ -501,10 +519,12 @@ function checkForSatellite() {
                             }
                         }
                     }
-                } else if(obj.action == "delete") {
+                break;
+                case "delete":
                     console.log("[ChatroomsSatellite] Message with delete intent has been recieved");
                     $("#message-" + obj.msgid).html("<i>[Message deleted]</i>");
-                } else if(obj.action == "edit") {
+                break;
+                case "edit":
                     console.log("[ChatroomsSatellite] Message with edit intent has been recieved");
                     let content = obj.msg;
                     for(let i = 0; i < (Object.keys(emotes).length); i++) {
@@ -515,10 +535,11 @@ function checkForSatellite() {
                         }
                     }
                     $("#message-" + obj.msgid).html(linker(content));
-                } else if(obj.action == "join") {
+                break;
+                case "join":
                     console.log("[ChatroomsSatellite] Message with join intent has been recieved");
                     if(!localChannel.startsWith("x") && localStorage.getItem("si_joinmsg") == "true")
-                        addMessage(obj.user, "<i>" + strings.satellite_join_intent + "</i>", 0, obj.uid, true, dateObj, false, true, false, obj.msgid);
+                        addMessage(obj.user, "<i>" + strings.satellite_join_intent + "</i>", 0, obj.uid, true, dateObj, false, true, false, obj.msgid, false, obj.channel);
                     $('.messageSpace').animate({
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
@@ -534,15 +555,17 @@ function checkForSatellite() {
 			}
                         let noti = new Notification(obj.user, {body: strings.satellite_join_intent, icon: icon});
                     }
-                } else if(obj.action == "leave") {
+                break;
+                case "leave":
                     console.log("[ChatroomsSatellite] Message with leave intent has been recieved");
                     if(!localChannel.startsWith("x") && localStorage.getItem("si_joinmsg") == true)
-                        addMessage(obj.user, "<i>" + strings.satellite_leave_intent + "</i>", 0, obj.uid, true, dateObj, false, true, false, obj.msgid);
+                        addMessage(obj.user, "<i>" + strings.satellite_leave_intent + "</i>", 0, obj.uid, true, dateObj, false, true, false, obj.msgid, false, obj.channel);
                     $('.messageSpace').animate({
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
                     getOnlineUsers();
-                } else if(obj.action == "editprofile") {
+                break;
+                case "editprofile":
                     console.log("[ChatroomsSatellite] Message with editprofile intent has been recieved");
                     //$("#meModal").modal("hide");
                     $("#pfpPreloader").html("");
@@ -553,7 +576,8 @@ function checkForSatellite() {
                     }, 'fast');
                     toaster("Saved!");
 		    getOnlineUsers();
-                } else if(obj.action == "editprofile:password") {
+                break;
+                case "editprofile:password":
                     console.log("[ChatroomsSatellite] Message with editprofile:password intent has been recieved");
                     //$("#meModal").modal("hide");
                     if(obj.status == "fail"){
@@ -568,12 +592,15 @@ function checkForSatellite() {
 			localStorage.setItem("authentication", obj.token);
 			location.reload();
 		    }
-                } else if(obj.action == "channel") {
+                break;
+                case "channel":
                     channels[obj.id] = obj.name;
-                    $(".channels").html(document.getElementsByClassName("channels")[0].innerHTML + "<button id='channel_" + obj.id + "' class='server emerg activatedServer' onclick='localChannel = " + obj.id + "; getOlderMessages(); addMessage(\"System\", strings.channels_switch + \"#" + obj.name + "\", 0, 0, true, now_new, true); xload();'><span class='channel-dot'><i class='bi bi-hash' title='Text'></i>&nbsp;•&nbsp;</span> <span class='channel-name'>" + obj.name + "</span></button><br>\n");
-                } else if(obj.action == "vchannel") {
+                    $(".channels").html(document.getElementsByClassName("channels")[0].innerHTML + "<button id='channel_" + obj.id + "' class='server emerg activatedServer' onclick='localChannel = " + obj.id + "; spawnTab("+ obj.id.toString() +"); /*addMessage(\"System\", strings.channels_switch + \"#" + obj.name + "\", 0, 0, true, now_new, true);*/ xload();'><span class='channel-dot'><i class='bi bi-hash' title='Text'></i>&nbsp;•&nbsp;</span> <span class='channel-name'>" + obj.name + "</span></button><br>\n");
+                break;
+                case "vchannel":
                     $(".vchannels").html(document.getElementsByClassName("vchannels")[0].innerHTML + "<button id='vchannel_" + obj.id + "' class='server emerg activatedServer vc' onclick='vchannel = " + obj.id + "; checkForVSatellite();'><span class='channel-dot'><i class='bi bi-mic' title='Voice'></i>&nbsp;•&nbsp;</span> " + obj.name + "</button><br>\n");
-                } else if(obj.action == "onlineuser") {
+                break;
+                case "onlineuser":
                     let pfp;
                     if(obj.picture == "") {
                         console.log("[ChatroomsClient] User has no profile picture.");
@@ -589,15 +616,21 @@ function checkForSatellite() {
                             $(".onlineList").html(document.getElementsByClassName("onlineList")[0].innerHTML + "<a href='#' onclick='userInfo(" + obj.id + ", \"" + obj.username + "\")' style='text-decoration: none;'><img class='rounded' src='"+ pfp +"' width='26' height='26'> " + obj.username.replace(localAccountName, "<b>" + localAccountName + "</b>") + "</a><br><span style='font-size:16px;'>\""+ emoteify(obj.profilestatus, 14) +"\"</span><br>\n");
                         }});
                     }
-                } else if(obj.action == "whisper") {
+                break;
+                case "whisper":
                     console.log("[ChatroomsSatellite] Message with whisper intent has been recieved");
-                    let isTheAuthor = false;
+                    isTheAuthor = false;
                     if(obj.uid == localAccount) {
                         isTheAuthor = true;
                     }
+                    if(!isTheAuthor){
+		        if(document.getElementById("w:" + obj.uid + "-pane") == null){
+                            spawnTab("w:" + obj.uid);
+                        }
+                    }
 			if(localStorage.getItem("has_discovered_whispers") == undefined) {
 				localStorage.setItem("has_discovered_whispers", "true");
-				addMessage("System", "You've received a Whisper! Whispers are messages that aren't stored, and that only the recipient and the sender can see. To whisper back, search for the sender's profile, click Whisper and type away. To switch back to a channel, click on any channel.", 0, 0, true, dateObj, true, true);
+				addMessage("System", "You've received a Whisper! Whispers are messages that aren't stored, and that only the recipient and the sender can see. To whisper back, search for the sender's profile, click Whisper and type away. To switch back to a channel, click on any channel.", 0, 0, true, dateObj, true, true, obj.channel);
 			}
                         if(obj.attachment1 != "") {
 			    obj.attachment1 = httphost + obj.attachment1;
@@ -655,12 +688,27 @@ function checkForSatellite() {
 				}
                                 let noti = new Notification(obj.user + " whispers to you:", {body: obj.msg, icon: icon});
                             }
+                            let uname = obj.user;
+                            let uid = 0;
+                            for(let i = 0; i < (userAccountStore.length); i++) {
+				if(userAccountStore[i+1] != null){
+					if(userAccountStore[i+1].username == obj.user){
+						uid = userAccountStore[i+1].id;
+					}
+				}
+		            }
+                            if(localChannel != "w:" + uid && obj.user != localCachedAccount.username){
+                                audio.play();
+                                htoaster(obj.user + " whispers to you:", obj.msg);
+                            }
                         }
+			messageAutoscroll();
                     //addWhisper(obj.user, obj.msg, 0, obj.uid, true, isTheAuthor, obj.recipient);
-                    $('.messageSpace').animate({
-                        scrollTop: overallMessageAmount * 100000
-                    }, 'fast');
-                } else if(obj.action == "user") {
+                    //$('.messageSpace').animate({
+                    //    scrollTop: overallMessageAmount * 100000
+                    //}, 'fast');
+                break;
+                case "user":
                     isDone = true;
                     vbLog(obj.status);
 		    let extra_badges = "";
@@ -753,7 +801,8 @@ function checkForSatellite() {
                         $("#accountInfoSystemError_O").css("display", "block");
                         console.error("FUCK");
                     }
-                } else if(obj.action == "account") {
+                break;
+                case "account":
                     isDone = true;
                     vbLog(obj.status);
                     if(obj.status == "success" || "ok") {
@@ -776,7 +825,7 @@ function checkForSatellite() {
                         $.ajax({url:localCachedAccount.picture, error:function(xhr, status, error){
                             console.log("[ChatroomsClient] Could not load profile picture!");
                             $("#accountInfoFailedToLoadAll_1").css("display", "block");
-                            $("#client_username_warning").html('<i title="There is a problem with your account that needs your action" class="bi bi-person-fill-exclamation"></i>');
+                            $("#client_username_warning").html('<i title="'+ strings.protocol_account_error +'" class="bi bi-person-fill-exclamation"></i>');
                             $("#miniPfp").attr("src", "account.png");
                             $("#accountInfoPicture_1").attr("src", "account.png");
                         }, success: function(result, status, xhr){
@@ -837,7 +886,7 @@ function checkForSatellite() {
                         $("#accountInfoSystemError_O").css("display", "block");
                         console.error("FUCK");
                     }
-                } else if(obj.action == "properties") {
+                case "properties":
                     let data = obj;
                     if(obj.server_name == "" && obj.welcome_message == "") {
                         contentId = contentId;
@@ -863,6 +912,7 @@ function checkForSatellite() {
                         $("#protocolUpgradeModal").modal("show");
                    } else {
                         if(contentId == undefined) {
+                            spawnTab(obj.system_channel);
                             if(allowMessageLoading == "1") {
                                 getOlderMessages();
                             }
@@ -937,13 +987,14 @@ function checkForSatellite() {
                         else
                             addMessage("System", "Happy Birthday to Popular Toppling Jelly!", 0, 0, true, now_new, true);
                     }
-                } else if(obj.action == "older_messages") {
+                break;
+                case "older_messages":
                     isDone = true;
                     let msgamount = Object.keys(obj.messages).length;
                     for(let i = (Object.keys(obj.messages).length - 1); i < msgamount; i--) {
                         overallMessageAmount++;
                         let isLast = false;
-                        let isTheAuthor = false;
+                        isTheAuthor = false;
                         let dateObjF = new Date(obj.messages[i].date * 1000);
                         let dateObj = dateObjF.toLocaleString();
                         let data = obj.messages;
@@ -1006,12 +1057,13 @@ function checkForSatellite() {
                     $('.messageSpace').animate({
                         scrollTop: overallMessageAmount * 100000
                     }, 'fast');
-                } else if(obj.action == "userlist") {
+                break;
+                case "userlist":
                     isDone = true;
 		    $(".onlineList").html()
                     let useramount = obj.users.length;
 		    if(useramount == 0){
-			    $(".onlineList").html("It's quiet in here. WAY too quiet...");
+			    $(".onlineList").html(strings.protocol_impostor_among_us);
 			    return;
 		    }
                     for(let i = 0; i <  obj.users.length; i++) {
@@ -1019,6 +1071,11 @@ function checkForSatellite() {
                         let data = obj.users;
                         //messageAutoscroll(true);
                         let pfp;
+			console.log(obj.users[i].id);
+				if(typeof(userAccountStore[i]) == "undefined" || obj.users[i].id.toString() != userAccountStore[i].id){
+					sockSend('{"type":"user","authentication":"' + token + '","id":"' + obj.users[i].id + '"}');
+					$("#otherUserModal").modal("hide");
+				}
                     if(obj.users[i].picture == "") {
                         console.log("[ChatroomsClient] User has no profile picture.");
                         pfp = "account.png";
@@ -1034,11 +1091,13 @@ function checkForSatellite() {
                         }});
                     }
                     } 
-		} else {
+		break;
+                default:
                     console.log("[ChatroomsSatellite] Who even knows what happened.");
+                break;
+//            } else {
+                    beginStringery();
                 }
-            } else {
-                beginStringery();
             }
         };
 
@@ -1202,9 +1261,10 @@ function loadDMs() {
 function initiateWhisper(id, shouldAdd) {
     xload();
     if(id != localAccount){
-        localChannel = "w:" + id;
+        zlocalChannel = "w:" + id;
         vbLog(localChannel);
         vbLog(id);
+        spawnTab("w:" + id);
     } else {
         toaster("You can't whisper to yourself, silly!");
     }
@@ -1777,10 +1837,17 @@ function nowDoTheOpposite2() {
 function beginStringery() {
     // BEGIN STRINGERY SETUP
     console.log("[Stringery] BEGIN STRINGERY SETUP");
+    $("#online_label").html(strings.protocol_connected_users);
+    $("#vc_label").html(strings.protocol_voice_users);
+    $("#client_settings").html(strings.option_category_client);
+    $("#server_settings").html(strings.option_category_server);
+    $("#general_settings").html(strings.option_category_general);
+    $("#acceptcss_b").html(strings.common_accept);
     $("#si_attention").html(strings.common_attention);
     $("#consentAcceptButton").html(strings.common_agreement);
     $("#aboutrooms_t").html(strings.modal_about);
     $("#aboutrooms_o").html(strings.common_ok);
+    $("#xwelcome").html(strings.common_x_welcome_screen);
     $("#odw").html(strings.modal_about_slogan);
     $("#quote_p1").html(strings.modal_about_quote);
     $("#quote_p2").html(strings.modal_about_quoteauthor);
@@ -1788,7 +1855,7 @@ function beginStringery() {
     $("#localemodal").html(strings.modal_language);
     $("#thememodal_2").html(strings.modal_theme);
     $("#thememodal_d").html(strings.modal_theme_d);
-    $("#sthememodal_d").html(strings.modal_theme_d);
+    $("#sthememodal_d").html(strings.modal_s_theme_d);
     $("#lightmode").html(strings.modal_theme_light);
     $("#inbetweenmode").html(strings.modal_theme_inbetween);
     $("#bdarkmode").html(strings.modal_theme_dark);
@@ -1806,7 +1873,7 @@ function beginStringery() {
     $("#notis_pings").html(strings.modal_notis_pings);
     $("#notis_pings_d").html(strings.modal_notis_pings_desc);
     $("#customcss_t").html(strings.option_custom_css);
-    $("#customcss_tp").html(strings.option_custom_css);
+    $("#customcss_tp").html(strings.option_customizer);
     $("#customcss_d").html(strings.modal_css_d);
     $("#acceptcss_b").html(strings.common_accept);
     $("#closecss_b").html(strings.common_cancel_alt);
@@ -1827,7 +1894,10 @@ function beginStringery() {
     $("#rules_ok").html(strings.common_ok);
     $("#userinfo_t").html(strings.modal_user_info);
     $("#userinfo_ok").html(strings.common_ok);
-    $("#customcss_button").html(strings.option_custom_css);
+    $("#settings_t").html(strings.options);
+    $("#channel_rules").html('<span class="channel-dot"><i class="bi bi-shield-fill-exclamation"></i>&nbsp;•&nbsp;</span> ' + strings.option_view_rules);
+    $("#findUserButton").html('<span class="channel-dot"><i class="bi bi-search"></i>&nbsp;•&nbsp;</span> ' + strings.protocol_find_user);
+    $("#customcss_button").html(strings.option_customizer);
     $("#lgout_l_button").html(strings.option_logout);
     // the amount of copium to keep the 5 letter streak :skull:
     $("#theme_button").html(strings.option_switch_theme);
@@ -1842,6 +1912,7 @@ function beginStringery() {
     $("#emotes_button").html(strings.common_emoteslist);
     $("#locale_button").html(strings.modal_language);
     $("#send_button").html(strings.common_sendcomposed);
+    $("#usersettings_button").html(strings.protocol_usersettings);
     document.getElementById("msgBox").placeholder = strings.common_messagebox;
     document.getElementById("editMsgBox").placeholder = strings.common_editbox;
     $("#changelog").html(strings.option_latest);
@@ -1927,6 +1998,10 @@ document.addEventListener("DOMContentLoaded", function() {
     else $(".settings").load("welcome.html");
     console.log("[ChatroomsClient] Ready!");
     getThemes()
+    if(localStorage.getItem("notivolume") == undefined) {
+        localStorage.setItem("notivolume", "0.5");
+        audio.volume = 0.5;
+    }
     if(localStorage.getItem("locale") == undefined) {
         localStorage.setItem("locale", "en_us");
         $.get("en_us.json", function(data, status) {
@@ -1947,14 +2022,14 @@ document.addEventListener("DOMContentLoaded", function() {
         $.get(""+ localStorage.getItem("locale") +".json", function(data, status) {
             $("#msgBox").val("");
             strings = data;
-            addMessage("System", strings.satellite_already_connecting, 0, 0, true, "", true);
+            addMessage("System", strings.satellite_already_connecting, 0, 0, true, now_new, true);
             const d = new Date();
             if(d.getMonth() == 11 && d.getDate() == 25) {
+                htoaster("The CloudSeeker Collective wishes you a...", "Merry Christmas!");
                 addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
-		toaster("The CloudSeeker Collective wishes you a Merry Christmas!");
             } else if(d.getMonth() == 0 && d.getDate() == 7) {
                 addMessage("System", "Merry Christmas!", 0, 0, true, now_new, true);
-		toaster("The CloudSeeker Collective wishes you a Merry Christmas!");
+                htoaster("The CloudSeeker Collective wishes you a...", "Merry Christmas!");
             }
 
             $("body").keyup(function(e) {
@@ -2111,7 +2186,7 @@ function getThemes() {
 function getSuggested() {
     $("#suggestedServers").html('<div class="spinner-border"></div>');
     if(localStorage.getItem("si_beta_keycard_staging") != "true")
-        var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/suggested.json";
+        var suggestionUrl = "https://earlyaccess.cloudseeker.xyz/chatrooms/wa/suggested.json";
     else
         var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/suggested-staging.json";
     $.ajax({url: suggestionUrl, success: function(result, xhr, status) {
@@ -2124,7 +2199,7 @@ function getSuggested() {
         for(let i = 0; i < roomamount; i++) {
             let reg_link = "";
             if(data[i].create_account != ""){
-                reg_link = "<button class='btn btn-primary' onclick='$(\"#loginModal\").modal(\"hide\"); $(\"#extModal\").modal({backdrop: \"static\", keyboard: false}); extLink(\""+ data[i].create_account +"\"); $(\"#denyext_b\").on(\"click\", function(){$(\"#loginModal\").modal(\"show\"); $(\"#denyext_b\").off(\"click\");}); $(\"#acceptext_b\").on(\"click\", function(){$(\"#loginModal\").modal(\"show\"); $(\"#acceptext_b\").off(\"click\");})'>Register for this Chatroom</button>";
+                reg_link = "<button class='btn btn-primary' onclick='$(\"#loginModal\").modal(\"hide\"); $(\"#extModal\").modal({backdrop: \"static\", keyboard: false}); extLink(\""+ data[i].create_account +"\"); $(\"#denyext_b\").on(\"click\", function(){$(\"#loginModal\").modal(\"show\"); $(\"#denyext_b\").off(\"click\");}); $(\"#acceptext_b\").on(\"click\", function(){$(\"#loginModal\").modal(\"show\"); $(\"#acceptext_b\").off(\"click\");})'>Register</button>";
             }
             if(data[i].type == "chatroom") {
                 switch(data[i].verified_type){
@@ -2215,8 +2290,108 @@ function emoteify(content, size){
     }
     return content;
 }
-function addMessage(author, ocontent, type, authorId, force, timestamp, isSystemMessage, shouldScrollToBottom, isAuthor, messageId, ignoreAutolink) {
+function closeTab(tab){
+	document.getElementById(tab + "-tab").remove();
+	if(!tab.toString().startsWith("x:")){
+		document.getElementById(tab + "-pane").remove();
+	}
+	else{
+		document.getElementById(tab + "-pane").classList = "tab-pane fade messageSpace";
+	}
+	let waitabitmore = setTimeout(function(){
+		localChannel = "x:welcome";
+		document.getElementById("add-tab").classList = document.getElementById("add-tab").classList + " active ";
+		document.getElementById("add-pane").classList = document.getElementById("add-pane").classList + " show active ";
+	}, 250);
+}
+function spawnTab(tab){
+	let name = "";
+	switch(tab){
+		case "x:rules":
+			name = '<i class="bi bi-shield-fill-exclamation"></i> Rules';
+		break;
+		case "x:console":
+			name = '<i class="bi bi-terminal"></i> Client';
+		break;
+		case "x:find":
+			name = '<i class="bi bi-search"></i> Finder';
+		break;
+		default:
+			if(tab.toString().startsWith("w:")){
+				let actualTab = tab.substring(2);
+				console.log(Number(actualTab));
+				console.log(actualTab);
+				name = '<i class="bi bi-chat-left-text-fill"></i> ' + userAccountStore[actualTab].username;
+				//tab = "w:" + actualTab];
+			}else{
+				if(typeof(channels[tab]) != "undefined"){
+					name = '<i class="bi bi-hash"></i>' + channels[tab];
+				}
+				else{
+					toaster("That resource does not exist...");
+					return;
+				}
+			}
+		break;
+	}
+	let updatedMessageBox2 = document.createElement("div");
+	updatedMessageBox2.innerHTML = '<li class="nav-item" role="presentation"><button class="nav-link" id="'+ tab +'-tab" data-bs-toggle="tab" data-bs-target="#'+ tab +'-pane" onclick="localChannel = \'' + tab + '\'; messageAutoscroll(true);" type="button" role="tab" aria-selected="false">'+ name +' <span onclick="closeTab(\''+ tab +'\')"><i class="bi bi-x-circle-fill"></i></span></button></li>';
+	$("#chTab")[0].appendChild(updatedMessageBox2);
+	let name2 = "";
+	let updatedMessageBox = document.createElement("div");
+	switch(tab){
+		case "x:rules":
+			updatedMessageBox.id = tab + "-pane";
+			updatedMessageBox.classList = "tab-pane fade messageSpace";
+			updatedMessageBox.role = "tabpanel";
+			//name2 = '<div class="tab-pane fade messageSpace" id="'+ tab +'-pane" role="tabpanel" aria-labelledby="'+ tab +'-tab" tabindex="0"></div>';		
+		break;
+		case "x:console":
+			updatedMessageBox.id = tab + "-pane";
+			updatedMessageBox.classList = "tab-pane fade messageSpace";
+			updatedMessageBox.role = "tabpanel";
+		break;
+		case "x:find":
+			//updatedMessageBox.id = tab + "-pane";
+			updatedMessageBox.classList = "tab-pane fade messageSpace";
+			updatedMessageBox.role = "tabpanel";
+			//$(updatedMessageBox).html("<p>Coming Soon!</p>");
+		break;
+		default:
+			if(tab.toString().startsWith("w:")){
+				updatedMessageBox.id = tab + "-pane";
+				updatedMessageBox.classList = "tab-pane fade messageSpace";
+				updatedMessageBox.role = "tabpanel";
+			}else{
+				updatedMessageBox.id = tab + "-pane";
+				updatedMessageBox.classList = "tab-pane fade messageSpace";
+				updatedMessageBox.role = "tabpanel";
+			}
+		break;
+	}
+	updatedMessageBox.innerHTML = name2;
+	$("#chTabContent")[0].appendChild(updatedMessageBox);
+	if(tab == "x:rules"){
+		try{
+			$.ajax({url: httphost + "/rules.txt", 
+            			success: function(result, xhr, status){document.getElementById("x:rules-pane").innerHTML = $("#list-rules")[0].innerHTML; document.getElementById("rules").innerHTML = result.toString(); }, 
+    				error: function(xhr, status, error){$("#x:rules-pane").html(strings.satellite_error); toaster(strings.satellite_error);}});
+		}
+		catch(e){
+			$("#x:rules-pane").html("An error occured!"); 
+			toaster("An error occured!");
+		}	
+	}
+//	else if(tab == "x:find"){
+//		document.getElementById("x:find-pane").innerHTML = "Coming Soon!";
+//	}
+	else{
+		let s = setTimeout(function(){getOlderMessages();}, 5);
+	}
+}
+function addMessage(author, ocontent, type, authorId, force, timestamp, isSystemMessage, shouldScrollToBottom, isAuthor, messageId, ignoreAutolink, channel) {
     let once = false;
+    let channel_to_put = localChannel;
     //let original_content = content;
     actualMsgBox = document.getElementById("msgBox").value;
     msgBox = document.getElementsByClassName("messageSpace")[0].innerHTML;
@@ -2231,6 +2406,12 @@ function addMessage(author, ocontent, type, authorId, force, timestamp, isSystem
     else{
 	// lol
 	content = content;
+    }
+    if(channel == undefined){
+        channel = localChannel;
+    }
+    else{
+        channel_to_put = channel;
     }
     for(let i = 0; i < (Object.keys(emotes).length); i++) {
         let lol = Object.keys(emotes[i])[0];
@@ -2266,9 +2447,9 @@ function addMessage(author, ocontent, type, authorId, force, timestamp, isSystem
                 updatedMessageBox.innerHTML = "<div class='message systemMessage'><a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + emoteify(content, 32) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n";
             }
         } else {
-            updatedMessageBox.innerHTML = "<div class='message systemMessage'><span title='This is a system message. Only you can see this. It will disappear if you switch channels.'>🛰️</span> <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + emoteify(content, 32) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n";
+            updatedMessageBox.innerHTML = "<div class='message systemMessage'><span title='This is a system message. Only you can see this. It will disappear if you clear the chat.'>🛰️</span> <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");' style='text-decoration: none;'>[" + author + "]</a>&nbsp;<span class='messageContent'>" + emoteify(content, 32) + "</span>&nbsp;<small style='font-size: 12px; color: darkgray;'>" + timestamp + "</small></div>\n";
         }
-        $(".messageSpace")[0].appendChild(updatedMessageBox);
+        $("#"+channel_to_put+"-pane")[0].appendChild(updatedMessageBox);
     }
 }
 
@@ -2286,7 +2467,29 @@ function addWhisper(author, ocontent, type, authorId, force, isAuthor, recipient
         // use this later: <a href='#' class='author' onclick='userInfo(" + authorId + ", \"" + author + "\");'>
         updatedMessageBox.innerHTML = "<div class='message systemMessage whisper' style='opacity: 0.5;'>" + author + ": <span class='messageContent'>" + emoteify(content, 32) + "</span></div>\n";
     }
-    $(".messageSpace")[0].appendChild(updatedMessageBox);
+    if(!isAuthor){
+    	document.getElementById("w:" + authorId + "-pane").appendChild(updatedMessageBox);
+    }else{
+        // because of the whisper protocol, in this case we have to do a workaround
+        let userId = 0;
+	console.log(recipient);
+        sockSend('{"type":"user:by_screen_name","authentication":"' + token + '","username":"' + author + '"}');
+        for(let x = 0; x <= userAccountStore.length; x++){
+            if(typeof userAccountStore[x] == "undefined")
+                //console.log(userAccountStore[x])
+                continue;
+            if(userAccountStore[x].username == author){
+                userId = userAccountStore[x].id;
+            }
+        }
+	console.log(userId);
+        if(document.getElementById("w:" + userId + "-pane") == undefined){
+            spawnTab("w:" + userId);
+            document.getElementById("w:" + userId + "-pane").appendChild(updatedMessageBox);
+        }else{
+            document.getElementById("w:" + userId + "-pane").appendChild(updatedMessageBox);
+        }
+    }
 }
 
 function startAdding(author, content, type, authorId, force, timestamp, isSystemMessage, isAuthor, messageId) {
@@ -2616,7 +2819,11 @@ function uploadProfilePicture() {
 }
 
 function sendMessage(content) {
-    if(localChannel.toString() == "x:rules"){
+    if(localChannel.toString() == "x:find"){
+        spawnTab(document.getElementById("finderField").value);
+        document.getElementById("finderField").value = "";
+    }
+    else if(localChannel.toString().startsWith("x:")){
         toaster("You are not allowed to write to this channel!");
         $("#msgBox").val("");
         return;
@@ -2741,7 +2948,7 @@ function deleteMessage(id) {
 }
 
 function clearChat() {
-    $(".messageSpace").html("");
+    $("#" + localChannel + "-pane").html("");
 }
 
 function doNothing() {

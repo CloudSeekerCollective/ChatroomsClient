@@ -1,6 +1,6 @@
 {
   "name": "Chatrooms",
-  "version": "0.7",
+  "version": "0.8.1",
   "description": "Connect with people and communities all around the world with Chatrooms",
   "main": "index.js",
   "scripts": {

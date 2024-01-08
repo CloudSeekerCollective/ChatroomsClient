@@ -23,14 +23,14 @@
 				);*/
 			}
 		</script>
-		<script src='jquery-3.7.1.min.js'></script>
+		<script src='jquery-3.6.0.min.js'></script>
 		<link href="WatermarkSatelliteEnabled.png" rel="icon">
 		<link href="bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="bootstrap-icons.css">
 		<script src="bootstrap.bundle.min.js"></script>
-		<script src="ChatroomsClient.js"></script>
 		<link href="ChatroomsClient.css" rel="stylesheet">
 		<link href="" id='darkmode' rel="stylesheet">
+		<script src="ChatroomsClient.js"></script>
 		<meta charset="UTF-8">
 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 		<meta http-equiv="Pragma" content="no-cache">
@@ -71,51 +71,29 @@
 	</div>
 	<div class='actualMessageSpace'>
 		<div class='row'>
-			<!--<div class='serverList col-sm-2 collapse collapse-horizontal show' id="channels-coll">
-				<span id='nca_text'>No channels available!</span><br>
-				
-			</div>-->
-			<div class='col-sm'>
-			<ul class="nav nav-tabs" id="chTab" role="tablist" style='font-size: 16px;'>
-  				<li class="nav-item" role="presentation">
-    					<button class="nav-link active" id="add-tab" data-bs-toggle="tab" data-bs-target="#add-pane" type="button" role="tab" aria-controls="contact-tab-pane" onclick="localChannel = 'x:welcome';" aria-selected="false"><i class="bi bi-house-door-fill"></i> Home</button>
-  				</li>
-				
-			</ul>
-			<div class="tab-content" id="chTabContent">
-  				<div class="tab-pane fade messageSpace" id="1-pane" role="tabpanel" aria-labelledby="1-tab" tabindex="0"></div>
-  				<div class="tab-pane fade show active messageSpace" id="add-pane" role="tabpanel" aria-labelledby="add-tab" tabindex="0">
+			<div class='serverList col-sm-2 collapse collapse-horizontal show' id="channels-coll">
+				<!--<span id='nca_text'>No channels available!</span><br>-->
 				<div>
-						<br><div class='text-center'><h2 id="xwelcome">Where do you want to go today?</h2></div>
-						<div class='container-sm'>
-						<div class='x'>
-							<!--<h6 style="opacity:0.5;"><b>INFORMATION CHANNELS</b></h6>-->
-							<button id='channel_rules' class='server emerg activatedServer' onclick='xload(); isDone = true; spawnTab("x:rules");'><span class='channel-dot'><i class="bi bi-shield-fill-exclamation"></i>&nbsp;•&nbsp;</span> Rules</button><br>
-							<button id='channel_find' class='server emerg activatedServer' onclick='xload(); isDone = true; spawnTab("x:find");'><span class='channel-dot'><i class="bi bi-search"></i>&nbsp;•&nbsp;</span> Finder</button><br>
-						</div>
-						<hr>
-						<div class="channels">
-							<div class="spinner-border"></div>
-						</div>
-						<hr>
-						<div class="vchannels">
-							<div class="spinner-border"></div>
-						</div>
-						<hr>
-						<div id='whispers'>
-                        		                <div class="spinner-border"></div>
-						</div>
-						</div>
+					<div class='x'>
+						<!--<h6 style="opacity:0.5;"><b>INFORMATION CHANNELS</b></h6>-->
+						<button id='channel_rules' class='server emerg activatedServer' onclick='localChannel = "x:rules"; xload(); isDone = true; clearChat(); loadRules();'><span class='channel-dot'><i class="bi bi-shield-fill-exclamation"></i>&nbsp;•&nbsp;</span> Rules</button><br>
+						<button id='findUserButton' class='server emerg activatedServer' onclick='$("#searchUserModal").modal("show")'><span class='channel-dot'><i class="bi bi-search"></i>&nbsp;•&nbsp;</span> User search</button><br>
 					</div>
-				</div>
-				<div class="tab-pane fade messageSpace" id="x:find-pane" role="tabpanel" aria-labelledby="x:find-tab" tabindex="0">
-				<div>
-						<br><div class='text-center'><h2 id="xfinder">Find anything on this Chatroom</h2>
-						<p>Insert something like a channel ID (<code>1</code>), a whisper ID (<code>w:100</code>), or a client resource (<code>x:rules</code>, <code>x:console</code>)...</p></div>
-						<div class="container-sm"><input type="text" class="form-control form-control-lg" id="finderField" placeholder="Find a resource..."></div>
+					<hr>
+					<div class="channels">
+						<div class="spinner-border"></div>
+					</div>
+					<hr>
+					<div class="vchannels">
+						<div class="spinner-border"></div>
+					</div>
+					<hr>
+					<div id='whispers'>
+                        	                <div class="spinner-border"></div>
 					</div>
 				</div>
 			</div>
+			<div class='messageSpace col-sm'>
 			</div>
 			<div class='allOnlineLists serverList col-sm-2 collapse collapse-horizontal show'>
 				<div>
@@ -124,12 +102,11 @@
 					<div class='vcOnlineList'>
 						<p>It's pretty quiet in here...</p>
 					</div>-->
-					<button id='findUserButton' class='server emerg activatedServer' onclick='$("#searchUserModal").modal("show")'><span class='channel-dot'><i class="bi bi-search"></i>&nbsp;•&nbsp;</span> User search</button><hr>
-					<h2 id="online_label">Currently online</h2>
+					<h2>Currently online</h2>
 					<div class='onlineList'>
 						<div class="spinner-border" aria-label="Loading..."></div>
 					</div><hr>
-					<h2 id="vc_label">In voice chat</h2>
+					<h2>In voice chat</h2>
 					<div class='vcOnlineList'>
 						<p>Join a voice channel to view who is talking.</p>
 					</div>
