@@ -2186,7 +2186,7 @@ function getThemes() {
 function getSuggested() {
     $("#suggestedServers").html('<div class="spinner-border"></div>');
     if(localStorage.getItem("si_beta_keycard_staging") != "true")
-        var suggestionUrl = "https://earlyaccess.cloudseeker.xyz/chatrooms/wa/suggested.json";
+        var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/suggested.json";
     else
         var suggestionUrl = "https://cloudseeker.xyz/chatrooms/wa/suggested-staging.json";
     $.ajax({url: suggestionUrl, success: function(result, xhr, status) {
