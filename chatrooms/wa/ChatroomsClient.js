@@ -241,25 +241,13 @@ function updateConfiguration() {
             if(localStorage.getItem("si_push_wisp") == "true") {
                 $("#pushes_wisp").attr("checked", true);
             }
-            else if(localStorage.getItem("si_push_wisp") != "true" || localStorage.getItem("si_push_wisp") != "false"){
-                localStorage.setItem("si_push_wisp", true);
-                $("#pushes_wisp").attr("checked", true);
-            }
 
             if(localStorage.getItem("si_push_pings") == "true") {
-                $("#pushes_pings").attr("checked", true);
-            }
-            else if(localStorage.getItem("si_push_pings") != "true" || localStorage.getItem("si_push_pings") != "false"){
-                localStorage.setItem("si_push_pings", true);
                 $("#pushes_pings").attr("checked", true);
             }
 
             if(localStorage.getItem("si_push_presence") == "true") {
                 $("#pushes_presence").attr("checked", true);
-            }
-            else if(localStorage.getItem("si_push_presence") != "true" || localStorage.getItem("si_push_presence") != "false"){
-                localStorage.setItem("si_push_presence", false);
-                $("#pushes_presence").attr("checked", false);
             }
             isDone = true;
 }
@@ -916,7 +904,7 @@ function checkForSatellite() {
                             if(allowMessageLoading == "1") {
                                 getOlderMessages();
                             }
-                            Notification.requestPermission().then(function(admit){if(admit.toString == "granted"){localStorage.setItem("si_push_notis", true); $("#pushes").attr("checked", true);}else{localStorage.setItem("si_push_notis", false);} console.log("[ChatroomsClient] Notification admit: " + admit);});
+                            Notification.requestPermission().then(function(admit){if(admit.toString() == "granted"){localStorage.setItem("si_push_notis", true); $("#pushes").attr("checked", true);}else{localStorage.setItem("si_push_notis", false);} console.log("[ChatroomsClient] Notification admit: " + admit);});
                             if(true){
                                 $("external_intents").checked = true;
                                 switch(get_args.get("intent")){
