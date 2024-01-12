@@ -1068,7 +1068,7 @@ function checkForSatellite() {
 			console.log(obj.users[i].id);
 				if(typeof(userAccountStore[i]) == "undefined" || obj.users[i].id.toString() != userAccountStore[i].id){
 					sockSend('{"type":"user","authentication":"' + token + '","id":"' + obj.users[i].id + '","silent":true}');
-					$("#otherUserModal").modal("hide");
+					//$("#otherUserModal").modal("hide");
 				}
                     if(obj.users[i].picture == "") {
                         console.log("[ChatroomsClient] User has no profile picture.");
