@@ -831,7 +831,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 <button type="button" class="btn-close" data-bs-dismiss="modal" style="position: absolute; right: 0; margin: 5px;"></button>
 	<img src="account.png" class="rounded" id="other_pfp" width="128" height="128" style="left: auto; position: absolute; top: 0; margin-top: 15px;">
 	<span><p class="placeholder-glow" id="accountInfoUsername_O" style="left: initial; font-family: SSP-B; font-size: 32px; margin-left: 140px;"><span class="placeholder col-6"></span><br></p></span><br><br>
-				"<span id="accountInfoPStatus_0" class="placeholder-glow"><span class="placeholder col-8"></span></span>"<br>
+	<span id="accountInfoPStatus_0" class="placeholder-glow"><span class="placeholder col-8"></span></span><br>
 	<div class="userActions" style="text-align: right">
 		<!--<button id='starWhisperButton' onclick='addMessage(&quot;System&quot;, &quot;You are now whispering to this user&quot;, 0, 0, true, now_new, true); initiateWhisper(WU, true)' data-bs-dismiss="modal" type="button" style='--bs-btn-bg: orange; --bs-btn-color: white; --bs-btn-hover-bg: shade-color(orange, 10%); --bs-btn-active-bg: shade-color(orange, 20%);' class="btn"><b>Star</b></button>-->
 		<div class="dropdown" style="display: inline;">
@@ -1327,7 +1327,7 @@ Version: 0.7.2
 				    <input class='form-control' id='accountInfoPStatus_1' oninput='$("#statusPreview").html(emoteify(value, 20))' placeholder="Set a status!">
                                     <button class="btn btn-outline-success" onclick='changeStatus();'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg></button>
                                 </div>
-				<p>Status will look like this: "<span id='statusPreview'></span>"</p>
+				<p>Status will look like this: <span id='statusPreview'></span></p>
 				<span id='sttsPreloader'></span><br>
 				<span><p id='accountInfoCreationDate_1'>Account created on: January 1st 1970, 00:00</p></span>
 				<span><p id='accountInfoLastLoginDate_1'>Last seen on: January 1st 1970, 00:00</p></span>
