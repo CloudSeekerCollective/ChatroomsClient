@@ -708,6 +708,7 @@ function checkForSatellite() {
                     let udateObj = udateObjF.toLocaleString();
                     if(obj.xstatus == "success") {
 			userAccountStore[obj.id] = obj;
+			if(typeof(obj.silent) != "undefined" && obj.silent != true){
                         console.log("[ChatroomsClient] got response");
                         $("#accountInfoCreationDate_O").html(strings.modal_user_info_createdon + udateObj);
                         $("#accountInfoLastLoginDate_O").html( /*strings.modal_user_info_lastseen + obj.lastLoginDate*/ "");
@@ -784,6 +785,7 @@ function checkForSatellite() {
                         WU = obj.id;
                         WUname = obj.username;
                         vbLog(WU);
+			}
                     } else if(obj.xstatus == "xfail") {
                         $("#accountInfoUnexistent_O").css("display", "block");
                         $("#accountInfoUsername_O").html("???");
@@ -1065,7 +1067,7 @@ function checkForSatellite() {
                         let pfp;
 			console.log(obj.users[i].id);
 				if(typeof(userAccountStore[i]) == "undefined" || obj.users[i].id.toString() != userAccountStore[i].id){
-					sockSend('{"type":"user","authentication":"' + token + '","id":"' + obj.users[i].id + '"}');
+					sockSend('{"type":"user","authentication":"' + token + '","id":"' + obj.users[i].id + '","silent":true}');
 					$("#otherUserModal").modal("hide");
 				}
                     if(obj.users[i].picture == "") {
