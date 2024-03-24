@@ -910,6 +910,23 @@ function checkForSatellite() {
                             if(allowMessageLoading == "1") {
                                 getOlderMessages();
                             }
+			    if(d.getMonth() == 2 && d.getDate() == 24) {
+	                        birthdayEasterEggTriggered = true;
+	                        if(localAccount == "2" && localStorage.getItem("server") == "cloudseeker.xyz"){
+	                            addMessage("System", "Happy Birthday!", 0, 0, true, now_new, true);
+				    htoaster("You've got mail!", "Happy Birthday!");
+				}
+	                        else{
+	                            addMessage("System", "Happy Birthday to GeofTheCake!", 0, 0, true, now_new, true);
+				    toaster("Happy Birthday to GeofTheCake!");
+				}
+			    } else if(d.getMonth() == 0 && d.getDate() == 28) {
+	                        birthdayEasterEggTriggered = true;
+	                        if(localAccount == "1" && localStorage.getItem("server") == "cloudseeker.xyz")
+	                            addMessage("System", "Happy Birthday PTJ!", 0, 0, true, now_new, true);
+	                        else
+	                            addMessage("System", "Happy Birthday to Popular Toppling Jelly!", 0, 0, true, now_new, true);
+	                    }
                             Notification.requestPermission().then(function(admit){if(admit.toString() == "granted"){localStorage.setItem("si_push_notis", true); $("#pushes").attr("checked", true);}else{localStorage.setItem("si_push_notis", false);} console.log("[ChatroomsClient] Notification admit: " + admit);});
                             if(true){
                                 $("external_intents").checked = true;
@@ -968,19 +985,6 @@ function checkForSatellite() {
                     $("#info_welcomeMessage").html(strings.modal_info_motd + avoidInjection(data.welcome_message));
                     shouldReconnect = true;
                     const d = new Date();
-                    if(d.getMonth() == 2 && d.getDate() == 24) {
-                        birthdayEasterEggTriggered = true;
-                        if(localAccount == "2" && localStorage.getItem("server") == "cloudseeker.xyz")
-                            addMessage("System", "Happy Birthday!", 0, 0, true, now_new, true);
-                        else
-                            addMessage("System", "Happy Birthday to GeofTheCake!", 0, 0, true, now_new, true);
-                    } else if(d.getMonth() == 0 && d.getDate() == 28) {
-                        birthdayEasterEggTriggered = true;
-                        if(localAccount == "1" && localStorage.getItem("server") == "cloudseeker.xyz")
-                            addMessage("System", "Happy Birthday PTJ!", 0, 0, true, now_new, true);
-                        else
-                            addMessage("System", "Happy Birthday to Popular Toppling Jelly!", 0, 0, true, now_new, true);
-                    }
                 break;
                 case "older_messages":
                     isDone = true;
