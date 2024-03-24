@@ -910,6 +910,7 @@ function checkForSatellite() {
                             if(allowMessageLoading == "1") {
                                 getOlderMessages();
                             }
+			    const d = new Date();
 			    if(d.getMonth() == 2 && d.getDate() == 24) {
 	                        birthdayEasterEggTriggered = true;
 	                        if(localAccount == "2" && localStorage.getItem("server") == "cloudseeker.xyz"){
@@ -984,7 +985,6 @@ function checkForSatellite() {
                     }
                     $("#info_welcomeMessage").html(strings.modal_info_motd + avoidInjection(data.welcome_message));
                     shouldReconnect = true;
-                    const d = new Date();
                 break;
                 case "older_messages":
                     isDone = true;
